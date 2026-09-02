@@ -12,7 +12,7 @@
     2. Categorías        6. Testimonios
     3. Destacados        7. Llamado final
     4. Cómo funciona
-    Ventana modal de vista rápida, reutilizada por las seis tarjetas
+    Ventana modal de vista rápida, reutilizada por las tres tarjetas
 
   La cabecera, la barra de navegación y el pie son copia exacta de los
   archivos de templates/fragments/. No se editan aquí.
@@ -233,8 +233,9 @@
 
     <!-- ====================================================================
          SECCIÓN 3: Productos destacados
-         Los seis productos destacados de docs/datos-demo.md.
-         Las seis tarjetas tienen exactamente la misma estructura; solo
+         Tres productos destacados de docs/datos-demo.md, uno por categoría:
+         una torta, un bocadito y un buffet. Eso es lo que los hace destacados.
+         Las tres tarjetas tienen exactamente la misma estructura; solo
          cambia el contenido. En el APF3 este bloque se reemplaza por un
          th:each sobre la lista de productos.
          Cada botón de vista rápida lleva los datos de su producto en
@@ -302,92 +303,6 @@
 
           </article>
 
-          <!-- ============ Producto P03 ============ -->
-          <article class="col">
-
-            <!-- Tarjeta -->
-            <div class="card x7-tarjeta h-100 overflow-hidden">
-
-              <img class="card-img-top x7-imagen-4-3" src="../static/img/productos/p03.jpg"
-                   alt="Torta de vainilla con fresas frescas y crema chantilly">
-
-              <div class="card-body d-flex flex-column">
-                <p class="x7-superior mb-1">Tortas decoradas</p>
-                <h3 class="h5 card-title mb-2">Torta de fresas con crema</h3>
-                <!-- Estilos de párrafo de Bootstrap: texto pequeño y atenuado -->
-                <p class="card-text text-body-secondary small flex-grow-1">
-                  Bizcocho de vainilla con fresas frescas y crema chantilly.
-                </p>
-                <p class="mb-3">
-                  <span class="x7-precio">S/ 110.00</span>
-                  <span class="small text-body-secondary">20 porciones</span>
-                </p>
-                <div class="d-grid gap-2">
-                  <a class="btn btn-primary" href="personalizado.html">Pedir</a>
-                  <!-- Los atributos data- alimentan la unica ventana modal.
-                       main.js los lee con dataset cuando se pulsa el boton. -->
-                  <button class="btn btn-outline-primary" type="button"
-                          data-bs-toggle="modal" data-bs-target="#modal-producto"
-                          data-codigo="P03"
-                          data-nombre="Torta de fresas con crema"
-                          data-etiqueta="Tortas decoradas"
-                          data-descripcion="Bizcocho de vainilla con fresas frescas y crema chantilly."
-                          data-precio="S/ 110.00"
-                          data-presentacion="20 porciones"
-                          data-imagen="../static/img/productos/p03.jpg"
-                          data-alt="Torta de vainilla con fresas frescas y crema chantilly">
-                    <i class="bi bi-eye me-1" aria-hidden="true"></i>Vista rapida
-                  </button>
-                </div>
-              </div>
-
-            </div>
-
-          </article>
-
-          <!-- ============ Producto P04 ============ -->
-          <article class="col">
-
-            <!-- Tarjeta -->
-            <div class="card x7-tarjeta h-100 overflow-hidden">
-
-              <img class="card-img-top x7-imagen-4-3" src="../static/img/productos/p04.jpg"
-                   alt="Torta tematica infantil decorada segun el personaje elegido">
-
-              <div class="card-body d-flex flex-column">
-                <p class="x7-superior mb-1">Tortas decoradas</p>
-                <h3 class="h5 card-title mb-2">Torta tematica infantil</h3>
-                <!-- Estilos de párrafo de Bootstrap: texto pequeño y atenuado -->
-                <p class="card-text text-body-secondary small flex-grow-1">
-                  Decoracion personalizada segun el personaje o motivo elegido.
-                </p>
-                <p class="mb-3">
-                  <span class="x7-precio">S/ 150.00</span>
-                  <span class="small text-body-secondary">25 porciones</span>
-                </p>
-                <div class="d-grid gap-2">
-                  <a class="btn btn-primary" href="personalizado.html">Pedir</a>
-                  <!-- Los atributos data- alimentan la unica ventana modal.
-                       main.js los lee con dataset cuando se pulsa el boton. -->
-                  <button class="btn btn-outline-primary" type="button"
-                          data-bs-toggle="modal" data-bs-target="#modal-producto"
-                          data-codigo="P04"
-                          data-nombre="Torta tematica infantil"
-                          data-etiqueta="Tortas decoradas"
-                          data-descripcion="Decoracion personalizada segun el personaje o motivo elegido."
-                          data-precio="S/ 150.00"
-                          data-presentacion="25 porciones"
-                          data-imagen="../static/img/productos/p04.jpg"
-                          data-alt="Torta tematica infantil decorada segun el personaje elegido">
-                    <i class="bi bi-eye me-1" aria-hidden="true"></i>Vista rapida
-                  </button>
-                </div>
-              </div>
-
-            </div>
-
-          </article>
-
           <!-- ============ Producto P08 ============ -->
           <article class="col">
 
@@ -422,49 +337,6 @@
                           data-presentacion="Ciento"
                           data-imagen="../static/img/productos/p08.jpg"
                           data-alt="Mini cupcakes decorados con betun de colores segun el tema">
-                    <i class="bi bi-eye me-1" aria-hidden="true"></i>Vista rapida
-                  </button>
-                </div>
-              </div>
-
-            </div>
-
-          </article>
-
-          <!-- ============ Producto P11 ============ -->
-          <article class="col">
-
-            <!-- Tarjeta -->
-            <div class="card x7-tarjeta h-100 overflow-hidden">
-
-              <img class="card-img-top x7-imagen-4-3" src="../static/img/productos/p11.jpg"
-                   alt="Cake pops tematicos banados en chocolate con decoracion">
-
-              <div class="card-body d-flex flex-column">
-                <p class="x7-superior mb-1">Bocaditos tematicos</p>
-                <h3 class="h5 card-title mb-2">Cake pops tematicos</h3>
-                <!-- Estilos de párrafo de Bootstrap: texto pequeño y atenuado -->
-                <p class="card-text text-body-secondary small flex-grow-1">
-                  Esferas de bizcocho banadas en chocolate con decoracion tematica.
-                </p>
-                <p class="mb-3">
-                  <span class="x7-precio">S/ 90.00</span>
-                  <span class="small text-body-secondary">Ciento</span>
-                </p>
-                <div class="d-grid gap-2">
-                  <a class="btn btn-primary" href="personalizado.html">Pedir</a>
-                  <!-- Los atributos data- alimentan la unica ventana modal.
-                       main.js los lee con dataset cuando se pulsa el boton. -->
-                  <button class="btn btn-outline-primary" type="button"
-                          data-bs-toggle="modal" data-bs-target="#modal-producto"
-                          data-codigo="P11"
-                          data-nombre="Cake pops tematicos"
-                          data-etiqueta="Bocaditos tematicos"
-                          data-descripcion="Esferas de bizcocho banadas en chocolate con decoracion tematica."
-                          data-precio="S/ 90.00"
-                          data-presentacion="Ciento"
-                          data-imagen="../static/img/productos/p11.jpg"
-                          data-alt="Cake pops tematicos banados en chocolate con decoracion">
                     <i class="bi bi-eye me-1" aria-hidden="true"></i>Vista rapida
                   </button>
                 </div>
@@ -609,9 +481,10 @@
 
     <!-- ====================================================================
          SECCIÓN 5: Galería
-         Ocho fotos de trabajos entregados. Todas en proporción 4:3 para que
+         Seis fotos de trabajos entregados. Todas en proporción 4:3 para que
          la rejilla quede pareja.
-         Rejilla: 2 columnas en móvil, 3 desde 768 px, 4 desde 992 px.
+         Rejilla: 2 columnas en móvil y 3 desde 768 px. Seis se reparte exacto
+         en las dos, sin dejar filas incompletas.
          ==================================================================== -->
     <section class="x7-fondo-crema py-5">
       <div class="container py-lg-4">
@@ -629,7 +502,7 @@
         </div>
 
         <!-- Rejilla de la galería -->
-        <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3 g-md-4">
+        <div class="row row-cols-2 row-cols-md-3 g-3 g-md-4">
 
           <div class="col">
             <img class="x7-imagen-4-3 rounded shadow-sm" src="../static/img/galeria/g01.jpg"
@@ -659,16 +532,6 @@
           <div class="col">
             <img class="x7-imagen-4-3 rounded shadow-sm" src="../static/img/galeria/g06.jpg"
                  alt="Buffet de bocaditos salados montado para una reunion de oficina">
-          </div>
-
-          <div class="col">
-            <img class="x7-imagen-4-3 rounded shadow-sm" src="../static/img/galeria/g07.jpg"
-                 alt="Torta de dos pisos con acabado en fondant y detalles florales">
-          </div>
-
-          <div class="col">
-            <img class="x7-imagen-4-3 rounded shadow-sm" src="../static/img/galeria/g08.jpg"
-                 alt="Desayuno buffet corporativo servido en bandejas">
           </div>
 
         </div>
@@ -867,7 +730,7 @@
 
     <!-- ====================================================================
          Ventana modal de vista rápida
-         Una sola ventana para los quince productos. Al pulsar un botón
+         Una sola ventana para las tres tarjetas. Al pulsar un botón
          "Vista rapida", main.js lee los atributos data- de ese botón y
          escribe sus valores aquí dentro.
          ==================================================================== -->
