@@ -92,6 +92,14 @@
 }
 
 
+/* Paginación del catálogo. Sin esto, la página activa saldría del azul que
+   Bootstrap trae por defecto, que no es el color de la marca. */
+.pagination {
+  --bs-pagination-active-bg: var(--x7-primario);
+  --bs-pagination-active-border-color: var(--x7-primario);
+}
+
+
 /* --------------------------------------------------------------------------
    3. Tipografía
    -------------------------------------------------------------------------- */
