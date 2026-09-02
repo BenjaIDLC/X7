@@ -27,11 +27,9 @@
      utilidades de color de Bootstrap (bg-primary, text-primary). */
   --x7-primario-rgb: 166, 58, 85;
 
-  /* Sombras de las tarjetas */
   --x7-sombra: 0 0.125rem 0.5rem rgba(43, 33, 24, 0.06);
   --x7-sombra-elevada: 0 0.75rem 1.75rem rgba(43, 33, 24, 0.13);
 
-  /* Tipografías */
   --x7-fuente-titulo: "Playfair Display", Georgia, serif;
   --x7-fuente-texto: "Inter", "Segoe UI", Arial, sans-serif;
 }
@@ -60,7 +58,6 @@
   --bs-link-hover-color: var(--x7-primario-oscuro);
 }
 
-/* Botón principal */
 .btn-primary {
   --bs-btn-bg: var(--x7-primario);
   --bs-btn-border-color: var(--x7-primario);
@@ -70,7 +67,6 @@
   --bs-btn-active-border-color: var(--x7-primario-oscuro);
 }
 
-/* Botón con solo el contorno */
 .btn-outline-primary {
   --bs-btn-color: var(--x7-primario);
   --bs-btn-border-color: var(--x7-primario);
@@ -104,13 +100,11 @@
    3. Tipografía
    -------------------------------------------------------------------------- */
 
-/* Todos los títulos van en Playfair Display */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--x7-fuente-titulo);
   font-weight: 700;
 }
 
-/* Rótulo pequeño en mayúsculas que abre cada sección */
 .x7-superior {
   font-size: 0.8125rem;
   font-weight: 600;
@@ -133,7 +127,6 @@ h1, h2, h3, h4, h5, h6 {
   background-color: var(--x7-crema);
 }
 
-/* Franja de color de marca del llamado final */
 .x7-franja {
   background-color: var(--x7-primario);
   color: #fff;
@@ -150,7 +143,6 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: var(--x7-sombra);
 }
 
-/* Nombre del negocio junto al logotipo */
 .x7-marca {
   font-family: var(--x7-fuente-titulo);
   font-size: 1.375rem;
@@ -226,7 +218,6 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: var(--x7-sombra-elevada);
 }
 
-/* Precio del producto */
 .x7-precio {
   font-family: var(--x7-fuente-titulo);
   font-size: 1.375rem;
@@ -242,7 +233,6 @@ h1, h2, h3, h4, h5, h6 {
    Aquí solo van el tamaño y los colores.
    -------------------------------------------------------------------------- */
 
-/* Círculo grande con un icono dentro, en la sección Cómo funciona */
 .x7-icono-circulo {
   width: 3.5rem;
   height: 3.5rem;
@@ -252,7 +242,6 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 1.5rem;
 }
 
-/* Círculo pequeño con el número del paso */
 .x7-paso-numero {
   width: 1.75rem;
   height: 1.75rem;
@@ -289,7 +278,6 @@ h1, h2, h3, h4, h5, h6 {
   color: #fff;
 }
 
-/* Círculo de cada red social */
 .x7-red-social {
   width: 2.25rem;
   height: 2.25rem;
@@ -302,7 +290,6 @@ h1, h2, h3, h4, h5, h6 {
   color: #fff;
 }
 
-/* Línea de derechos, separada del resto por un filete claro */
 .x7-derechos {
   border-top: 1px solid rgba(255, 255, 255, 0.14);
   font-size: 0.875rem;
