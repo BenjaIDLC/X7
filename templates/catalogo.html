@@ -20,27 +20,22 @@
 
 <head>
 
-  <!-- Etiquetas obligatorias: juego de caracteres y adaptación a móvil -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Pasteleria y catering en Ica. Tortas decoradas por encargo, bocaditos tematicos y buffets para eventos.">
 
-  <!-- Título propio de cada página -->
   <title>Catalogo | X7 Pasteleria y Catering</title>
 
-  <!-- Tipografías de marca: Playfair Display para títulos, Inter para texto -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 
-  <!-- Bootstrap 5.3 y Bootstrap Icons, ambos por CDN -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
 
   <!-- Hoja propia. Va al final para que sus colores ganen a los de Bootstrap -->
   <link href="../static/css/estilos.css" rel="stylesheet">
 
-  <!-- Icono de la pestaña del navegador -->
   <link rel="icon" href="../static/img/logo.svg" type="image/svg+xml">
 
 </head>
@@ -58,23 +53,19 @@
     <nav class="navbar navbar-expand-lg x7-navbar" aria-label="Navegacion principal">
       <div class="container">
 
-        <!-- Marca: logotipo y nombre del negocio -->
         <a class="navbar-brand x7-marca d-flex align-items-center gap-2" href="index.html">
           <img src="../static/img/logo.svg" alt="Logotipo de X7 Pasteleria y Catering" width="36" height="36">
           <span>X7</span>
         </a>
 
-        <!-- Botón de hamburguesa, visible solo en pantallas pequeñas -->
         <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
                 data-bs-target="#x7-menu" aria-controls="x7-menu" aria-expanded="false"
                 aria-label="Abrir o cerrar el menu de navegacion">
           <span class="navbar-toggler-icon"></span>
         </button>
 
-        <!-- Contenido que se colapsa en móvil -->
         <div class="collapse navbar-collapse" id="x7-menu">
 
-          <!-- Enlaces a las cuatro páginas del sitio -->
           <ul class="navbar-nav me-auto mb-3 mb-lg-0">
             <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
             <li class="nav-item"><a class="nav-link" href="catalogo.html">Catalogo</a></li>
@@ -132,7 +123,6 @@
     <section class="py-5">
       <div class="container">
 
-        <!-- Barra de filtros. Grupo de botones de Bootstrap -->
         <div class="d-flex justify-content-center mb-5">
           <div class="btn-group flex-wrap" role="group" aria-label="Filtrar productos por categoria">
             <button class="btn btn-outline-primary active" type="button" data-filtro="todos">Todos</button>
@@ -149,7 +139,6 @@
              quince sin tocar el marcado. -->
         <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4">
 
-          <!-- ============ Producto P01 ============ -->
           <article class="col" data-categoria="tortas">
             <div class="card x7-tarjeta h-100 overflow-hidden">
 
@@ -158,7 +147,6 @@
 
               <div class="card-body d-flex flex-column">
 
-                <!-- Insignia con la categoria del producto -->
                 <span class="badge text-bg-secondary align-self-start mb-2">Tortas decoradas</span>
 
                 <h2 class="h5 card-title mb-2">Torta de chocolate con fudge</h2>
@@ -176,8 +164,6 @@
                 <div class="d-grid gap-2">
                   <a class="btn btn-primary" href="personalizado.html">Pedir</a>
 
-                  <!-- Los atributos data- alimentan la unica ventana modal.
-                       main.js los lee con dataset cuando se pulsa el boton. -->
                   <button class="btn btn-outline-primary" type="button"
                           data-bs-toggle="modal" data-bs-target="#modal-producto"
                           data-codigo="P01"
@@ -197,7 +183,6 @@
           </article>
 
 
-          <!-- ============ Producto P04 ============ -->
           <article class="col" data-categoria="tortas">
             <div class="card x7-tarjeta h-100 overflow-hidden">
 
@@ -206,7 +191,6 @@
 
               <div class="card-body d-flex flex-column">
 
-                <!-- Insignia con la categoria del producto -->
                 <span class="badge text-bg-secondary align-self-start mb-2">Tortas decoradas</span>
 
                 <h2 class="h5 card-title mb-2">Torta tematica infantil</h2>
@@ -224,8 +208,6 @@
                 <div class="d-grid gap-2">
                   <a class="btn btn-primary" href="personalizado.html">Pedir</a>
 
-                  <!-- Los atributos data- alimentan la unica ventana modal.
-                       main.js los lee con dataset cuando se pulsa el boton. -->
                   <button class="btn btn-outline-primary" type="button"
                           data-bs-toggle="modal" data-bs-target="#modal-producto"
                           data-codigo="P04"
@@ -244,7 +226,6 @@
             </div>
           </article>
 
-          <!-- ============ Producto P08 ============ -->
           <article class="col" data-categoria="bocaditos">
             <div class="card x7-tarjeta h-100 overflow-hidden">
 
@@ -253,7 +234,6 @@
 
               <div class="card-body d-flex flex-column">
 
-                <!-- Insignia con la categoria del producto -->
                 <span class="badge text-bg-secondary align-self-start mb-2">Bocaditos tematicos</span>
 
                 <h2 class="h5 card-title mb-2">Mini cupcakes decorados</h2>
@@ -271,8 +251,6 @@
                 <div class="d-grid gap-2">
                   <a class="btn btn-primary" href="personalizado.html">Pedir</a>
 
-                  <!-- Los atributos data- alimentan la unica ventana modal.
-                       main.js los lee con dataset cuando se pulsa el boton. -->
                   <button class="btn btn-outline-primary" type="button"
                           data-bs-toggle="modal" data-bs-target="#modal-producto"
                           data-codigo="P08"
@@ -291,7 +269,6 @@
             </div>
           </article>
 
-          <!-- ============ Producto P09 ============ -->
           <article class="col" data-categoria="bocaditos">
             <div class="card x7-tarjeta h-100 overflow-hidden">
 
@@ -300,7 +277,6 @@
 
               <div class="card-body d-flex flex-column">
 
-                <!-- Insignia con la categoria del producto -->
                 <span class="badge text-bg-secondary align-self-start mb-2">Bocaditos tematicos</span>
 
                 <h2 class="h5 card-title mb-2">Bocaditos salados surtidos</h2>
@@ -318,8 +294,6 @@
                 <div class="d-grid gap-2">
                   <a class="btn btn-primary" href="personalizado.html">Pedir</a>
 
-                  <!-- Los atributos data- alimentan la unica ventana modal.
-                       main.js los lee con dataset cuando se pulsa el boton. -->
                   <button class="btn btn-outline-primary" type="button"
                           data-bs-toggle="modal" data-bs-target="#modal-producto"
                           data-codigo="P09"
@@ -339,7 +313,6 @@
           </article>
 
 
-          <!-- ============ Producto P13 ============ -->
           <article class="col" data-categoria="buffets">
             <div class="card x7-tarjeta h-100 overflow-hidden">
 
@@ -348,7 +321,6 @@
 
               <div class="card-body d-flex flex-column">
 
-                <!-- Insignia con la categoria del producto -->
                 <span class="badge text-bg-secondary align-self-start mb-2">Buffets para eventos</span>
 
                 <h2 class="h5 card-title mb-2">Buffet criollo para 30 personas</h2>
@@ -366,8 +338,6 @@
                 <div class="d-grid gap-2">
                   <a class="btn btn-primary" href="personalizado.html">Pedir</a>
 
-                  <!-- Los atributos data- alimentan la unica ventana modal.
-                       main.js los lee con dataset cuando se pulsa el boton. -->
                   <button class="btn btn-outline-primary" type="button"
                           data-bs-toggle="modal" data-bs-target="#modal-producto"
                           data-codigo="P13"
@@ -386,7 +356,6 @@
             </div>
           </article>
 
-          <!-- ============ Producto P14 ============ -->
           <article class="col" data-categoria="buffets">
             <div class="card x7-tarjeta h-100 overflow-hidden">
 
@@ -395,7 +364,6 @@
 
               <div class="card-body d-flex flex-column">
 
-                <!-- Insignia con la categoria del producto -->
                 <span class="badge text-bg-secondary align-self-start mb-2">Buffets para eventos</span>
 
                 <h2 class="h5 card-title mb-2">Buffet de bocaditos para 50 personas</h2>
@@ -413,8 +381,6 @@
                 <div class="d-grid gap-2">
                   <a class="btn btn-primary" href="personalizado.html">Pedir</a>
 
-                  <!-- Los atributos data- alimentan la unica ventana modal.
-                       main.js los lee con dataset cuando se pulsa el boton. -->
                   <button class="btn btn-outline-primary" type="button"
                           data-bs-toggle="modal" data-bs-target="#modal-producto"
                           data-codigo="P14"
@@ -515,7 +481,6 @@
     <div class="container">
       <div class="row g-4">
 
-        <!-- Columna 1: marca y descripción del negocio -->
         <div class="col-12 col-lg-5">
 
           <p class="x7-marca d-flex align-items-center gap-2 mb-3">
@@ -530,7 +495,6 @@
 
         </div>
 
-        <!-- Columna 2: enlaces a las cuatro páginas del sitio -->
         <div class="col-12 col-sm-6 col-lg-3">
           <h2 class="h6 text-uppercase mb-3">Enlaces</h2>
           <ul class="list-unstyled d-grid gap-2 mb-0">
@@ -541,7 +505,6 @@
           </ul>
         </div>
 
-        <!-- Columna 3: datos de contacto, horario y redes sociales -->
         <div class="col-12 col-sm-6 col-lg-4">
 
           <h2 class="h6 text-uppercase mb-3">Contacto</h2>
@@ -565,7 +528,6 @@
             </li>
           </ul>
 
-          <!-- Redes sociales -->
           <ul class="list-unstyled d-flex gap-2 mb-0">
             <li>
               <a class="x7-red-social d-inline-flex align-items-center justify-content-center rounded-circle"
@@ -597,7 +559,6 @@
 
       </div>
 
-      <!-- Línea de derechos -->
       <p class="x7-derechos text-center mt-4 pt-3 mb-0">
         2026 X7 Pasteleria y Catering. Ica, Peru. Proyecto academico del curso Marcos de Desarrollo Web.
       </p>
