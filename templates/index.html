@@ -237,8 +237,9 @@
          Las seis tarjetas tienen exactamente la misma estructura; solo
          cambia el contenido. En el APF3 este bloque se reemplaza por un
          th:each sobre la lista de productos.
-         Cada producto lleva su propia ventana modal dentro del article,
-         para que la vista rápida funcione sin JavaScript propio.
+         Cada botón de vista rápida lleva los datos de su producto en
+         atributos data-; main.js los lee con dataset y con ellos llena la
+         única ventana modal de la página, igual que en catalogo.html.
          Rejilla: 1 columna en móvil, 2 desde 576 px, 3 desde 992 px.
          ==================================================================== -->
     <section class="x7-fondo-crema py-5">
