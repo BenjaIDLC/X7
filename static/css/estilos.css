@@ -228,13 +228,13 @@ h1, h2, h3, h4, h5, h6 {
 
 
 /* --------------------------------------------------------------------------
-   9. Iconos, pasos y estrellas
+   9. Iconos y pasos
    La forma redonda y el centrado los ponen las clases de Bootstrap
    rounded-circle, d-inline-flex, align-items-center y justify-content-center.
    Aquí solo van el tamaño y los colores.
    -------------------------------------------------------------------------- */
 
-/* Círculo grande con un icono dentro, en Cómo funciona y en Testimonios */
+/* Círculo grande con un icono dentro, en la sección Cómo funciona */
 .x7-icono-circulo {
   width: 3.5rem;
   height: 3.5rem;
@@ -252,12 +252,6 @@ h1, h2, h3, h4, h5, h6 {
   color: #fff;
   font-size: 0.875rem;
   font-weight: 600;
-}
-
-/* Estrellas de los testimonios */
-.x7-estrellas {
-  color: var(--x7-acento);
-  letter-spacing: 0.1em;
 }
 
 
