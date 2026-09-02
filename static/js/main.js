@@ -33,11 +33,8 @@ document.addEventListener("DOMContentLoaded", function () {
      puede copiar tal cual.
      ------------------------------------------------------------------------ */
 
-  // Ruta de la página abierta, por ejemplo "/templates/catalogo.html"
   var ruta = window.location.pathname;
 
-  // Se corta la ruta por las barras y se toma el último trozo,
-  // que es el nombre del archivo, por ejemplo "catalogo.html"
   var trozos = ruta.split("/");
   var paginaActual = trozos[trozos.length - 1];
 
@@ -46,7 +43,6 @@ document.addEventListener("DOMContentLoaded", function () {
     paginaActual = "index.html";
   }
 
-  // Se compara el href de cada enlace con el nombre de la página abierta
   var enlaces = document.querySelectorAll(".x7-navbar .nav-link");
 
   enlaces.forEach(function (enlace) {
@@ -73,7 +69,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function filtrarCatalogo(categoria) {
 
-    // Muestra u oculta cada tarjeta segun su categoría
     tarjetas.forEach(function (tarjeta) {
 
       if (categoria === "todos" || tarjeta.dataset.categoria === categoria) {
@@ -84,7 +79,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     });
 
-    // Deja marcado como activo solo el botón pulsado
     botonesFiltro.forEach(function (boton) {
 
       if (boton.dataset.filtro === categoria) {
@@ -191,7 +185,6 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById("modal-pedido-productos").textContent = boton.dataset.productos;
       document.getElementById("modal-pedido-total").textContent = boton.dataset.total;
 
-      // La insignia cambia de texto y de color segun el estado del pedido
       var insignia = document.getElementById("modal-pedido-estado");
       insignia.textContent = boton.dataset.estado;
       insignia.className = "badge " + boton.dataset.clase;
