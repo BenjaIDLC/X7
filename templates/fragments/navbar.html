@@ -1,0 +1,64 @@
+<!--
+  ============================================================================
+  Archivo:     templates/fragments/navbar.html
+  Propósito:   Barra de navegación común a las cuatro páginas. Se copia tal
+               cual, sin retocar nada, dentro del <body> de cada archivo.
+  Integrante:  ______________________________
+
+  El bloque empieza en el comentario "Barra de navegación" y ya viene con la
+  sangría de 2 espacios que le corresponde dentro de <body>.
+
+  Los cuatro enlaces apuntan a las cuatro páginas del APF1. Ninguno queda
+  en "#". Las demás vistas del sistema llegan en entregas posteriores.
+
+  Aquí NO se escribe la clase active en ningún enlace. La agrega main.js
+  según la página abierta, para que este bloque sea idéntico en las cuatro
+  vistas y en el APF2 se reemplace por un th:replace sin tocarlo.
+
+  MARCA: el nombre X7 aparece una vez, en el enlace de marca.
+  ============================================================================
+-->
+  <!-- ======================================================================
+       Barra de navegación
+       Se queda pegada arriba al desplazar (sticky-top) y se convierte en
+       menú desplegable por debajo de 992 px (navbar-expand-lg).
+       ====================================================================== -->
+  <header class="sticky-top">
+    <nav class="navbar navbar-expand-lg x7-navbar" aria-label="Navegacion principal">
+      <div class="container">
+
+        <!-- Marca: logotipo y nombre del negocio -->
+        <a class="navbar-brand x7-marca d-flex align-items-center gap-2" href="index.html">
+          <img src="../static/img/logo.svg" alt="Logotipo de X7 Pasteleria y Catering" width="36" height="36">
+          <span>X7</span>
+        </a>
+
+        <!-- Botón de hamburguesa, visible solo en pantallas pequeñas -->
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+                data-bs-target="#x7-menu" aria-controls="x7-menu" aria-expanded="false"
+                aria-label="Abrir o cerrar el menu de navegacion">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Contenido que se colapsa en móvil -->
+        <div class="collapse navbar-collapse" id="x7-menu">
+
+          <!-- Enlaces a las cuatro páginas del sitio -->
+          <ul class="navbar-nav me-auto mb-3 mb-lg-0">
+            <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+            <li class="nav-item"><a class="nav-link" href="catalogo.html">Catalogo</a></li>
+            <li class="nav-item"><a class="nav-link" href="personalizado.html">Personaliza tu torta</a></li>
+            <li class="nav-item"><a class="nav-link" href="mis-pedidos.html">Mis pedidos</a></li>
+          </ul>
+
+          <!-- Botón destacado. En móvil ocupa todo el ancho (d-grid) y
+               desde 992 px vuelve a su tamaño natural (d-lg-block) -->
+          <div class="d-grid d-lg-block">
+            <a class="btn btn-primary px-3" href="catalogo.html">Haz tu pedido</a>
+          </div>
+
+        </div>
+
+      </div>
+    </nav>
+  </header>

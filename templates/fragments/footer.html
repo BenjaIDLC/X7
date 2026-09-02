@@ -1,0 +1,118 @@
+<!--
+  ============================================================================
+  Archivo:     templates/fragments/footer.html
+  Propósito:   Pie de página común a las cuatro páginas. Se copia tal cual,
+               sin retocar nada, al final del <body> de cada archivo.
+  Integrante:  ______________________________
+
+  El bloque empieza en el comentario "Pie de página" y ya viene con la
+  sangría de 2 espacios que le corresponde dentro de <body>.
+
+  Tres columnas: marca, enlaces a las cuatro páginas, y datos de contacto
+  con horario y redes.
+
+  Los datos entre corchetes son marcadores de docs/datos-demo.md y se
+  sustituyen cuando la empresa entregue la información real.
+
+  MARCA: el nombre X7 aparece en el bloque de marca y en la línea de
+  derechos. Es un nombre de reemplazo.
+  ============================================================================
+-->
+  <!-- ======================================================================
+       Pie de página
+       Tres columnas que se apilan en móvil: marca, enlaces y contacto.
+       Debajo, la línea de derechos.
+       ====================================================================== -->
+  <footer class="x7-footer pt-5 pb-4 mt-auto">
+    <div class="container">
+      <div class="row g-4">
+
+        <!-- Columna 1: marca y descripción del negocio -->
+        <div class="col-12 col-lg-5">
+
+          <p class="x7-marca d-flex align-items-center gap-2 mb-3">
+            <img src="../static/img/logo.svg" alt="Logotipo de X7 Pasteleria y Catering" width="36" height="36">
+            <span>X7</span>
+          </p>
+
+          <p class="mb-0">
+            Pasteleria y catering en Ica. Tortas decoradas por encargo, bocaditos tematicos
+            y buffets para reuniones familiares y corporativas.
+          </p>
+
+        </div>
+
+        <!-- Columna 2: enlaces a las cuatro páginas del sitio -->
+        <div class="col-12 col-sm-6 col-lg-3">
+          <h2 class="h6 text-uppercase mb-3">Enlaces</h2>
+          <ul class="list-unstyled d-grid gap-2 mb-0">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="catalogo.html">Catalogo</a></li>
+            <li><a href="personalizado.html">Personaliza tu torta</a></li>
+            <li><a href="mis-pedidos.html">Mis pedidos</a></li>
+          </ul>
+        </div>
+
+        <!-- Columna 3: datos de contacto, horario y redes sociales -->
+        <div class="col-12 col-sm-6 col-lg-4">
+
+          <h2 class="h6 text-uppercase mb-3">Contacto</h2>
+
+          <ul class="list-unstyled d-grid gap-2 mb-3">
+            <li class="d-flex gap-2">
+              <i class="bi bi-geo-alt flex-shrink-0 mt-1" aria-hidden="true"></i>
+              <span>[direccion pendiente], Ica, Peru</span>
+            </li>
+            <li class="d-flex gap-2">
+              <i class="bi bi-telephone flex-shrink-0 mt-1" aria-hidden="true"></i>
+              <span>[telefono pendiente]</span>
+            </li>
+            <li class="d-flex gap-2">
+              <i class="bi bi-envelope flex-shrink-0 mt-1" aria-hidden="true"></i>
+              <a href="mailto:contacto@x7.pe">contacto@x7.pe</a>
+            </li>
+            <li class="d-flex gap-2">
+              <i class="bi bi-clock flex-shrink-0 mt-1" aria-hidden="true"></i>
+              <span>Lunes a sabado de 9:00 a 20:00. Domingos de 10:00 a 14:00.</span>
+            </li>
+          </ul>
+
+          <!-- Redes sociales -->
+          <ul class="list-unstyled d-flex gap-2 mb-0">
+            <li>
+              <a class="x7-red-social d-inline-flex align-items-center justify-content-center rounded-circle"
+                 href="https://www.facebook.com/" aria-label="Facebook de X7">
+                <i class="bi bi-facebook" aria-hidden="true"></i>
+              </a>
+            </li>
+            <li>
+              <a class="x7-red-social d-inline-flex align-items-center justify-content-center rounded-circle"
+                 href="https://www.instagram.com/" aria-label="Instagram de X7">
+                <i class="bi bi-instagram" aria-hidden="true"></i>
+              </a>
+            </li>
+            <li>
+              <a class="x7-red-social d-inline-flex align-items-center justify-content-center rounded-circle"
+                 href="https://www.tiktok.com/" aria-label="TikTok de X7">
+                <i class="bi bi-tiktok" aria-hidden="true"></i>
+              </a>
+            </li>
+            <li>
+              <a class="x7-red-social d-inline-flex align-items-center justify-content-center rounded-circle"
+                 href="https://wa.me/" aria-label="WhatsApp de X7">
+                <i class="bi bi-whatsapp" aria-hidden="true"></i>
+              </a>
+            </li>
+          </ul>
+
+        </div>
+
+      </div>
+
+      <!-- Línea de derechos -->
+      <p class="x7-derechos text-center mt-4 pt-3 mb-0">
+        2026 X7 Pasteleria y Catering. Ica, Peru. Proyecto academico del curso Marcos de Desarrollo Web.
+      </p>
+
+    </div>
+  </footer>

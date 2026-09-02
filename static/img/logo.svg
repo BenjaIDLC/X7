@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- MARCA: logotipo de reemplazo. Sustituir junto con el nombre real del negocio. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" role="img" aria-label="Logotipo X7">
+  <circle cx="24" cy="24" r="23" fill="#A63A55"/>
+  <circle cx="24" cy="24" r="20" fill="none" stroke="#C9A227" stroke-width="1.5"/>
+  <text x="24" y="24" fill="#F7EDE4" font-family="Georgia, 'Times New Roman', serif" font-size="20"
+        font-weight="700" text-anchor="middle" dominant-baseline="central">X7</text>
+</svg>

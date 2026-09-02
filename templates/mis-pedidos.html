@@ -1,0 +1,589 @@
+<!--
+  ============================================================================
+  Archivo:     templates/mis-pedidos.html
+  Propósito:   Historial de pedidos del cliente en el sitio X7. Muestra el
+               resumen por estado, la tabla de pedidos de docs/datos-demo.md
+               y el horario de atención, y abre una ventana modal con el
+               detalle del pedido elegido.
+  Integrante:  ______________________________
+
+  Contiene tres secciones y una ventana modal:
+    1. Encabezado y resumen por estado
+    2. Tabla de pedidos
+    3. Horario de atención, en una segunda tabla con otro estilo
+    Ventana modal de detalle, reutilizada por los seis pedidos
+
+  La cabecera, la barra de navegación y el pie son copia exacta de los
+  archivos de templates/fragments/. No se editan aquí.
+  ============================================================================
+-->
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+  <!-- Etiquetas obligatorias: juego de caracteres y adaptación a móvil -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Pasteleria y catering en Ica. Tortas decoradas por encargo, bocaditos tematicos y buffets para eventos.">
+
+  <!-- Título propio de cada página -->
+  <title>Mis pedidos | X7 Pasteleria y Catering</title>
+
+  <!-- Tipografías de marca: Playfair Display para títulos, Inter para texto -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap 5.3 y Bootstrap Icons, ambos por CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+  <!-- Hoja propia. Va al final para que sus colores ganen a los de Bootstrap -->
+  <link href="../static/css/estilos.css" rel="stylesheet">
+
+  <!-- Icono de la pestaña del navegador -->
+  <link rel="icon" href="../static/img/logo.svg" type="image/svg+xml">
+
+</head>
+
+<!-- El body es una columna de alto completo para que el pie quede abajo
+     aunque la página tenga poco contenido -->
+<body class="d-flex flex-column min-vh-100">
+
+  <!-- ======================================================================
+       Barra de navegación
+       Se queda pegada arriba al desplazar (sticky-top) y se convierte en
+       menú desplegable por debajo de 992 px (navbar-expand-lg).
+       ====================================================================== -->
+  <header class="sticky-top">
+    <nav class="navbar navbar-expand-lg x7-navbar" aria-label="Navegacion principal">
+      <div class="container">
+
+        <!-- Marca: logotipo y nombre del negocio -->
+        <a class="navbar-brand x7-marca d-flex align-items-center gap-2" href="index.html">
+          <img src="../static/img/logo.svg" alt="Logotipo de X7 Pasteleria y Catering" width="36" height="36">
+          <span>X7</span>
+        </a>
+
+        <!-- Botón de hamburguesa, visible solo en pantallas pequeñas -->
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+                data-bs-target="#x7-menu" aria-controls="x7-menu" aria-expanded="false"
+                aria-label="Abrir o cerrar el menu de navegacion">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Contenido que se colapsa en móvil -->
+        <div class="collapse navbar-collapse" id="x7-menu">
+
+          <!-- Enlaces a las cuatro páginas del sitio -->
+          <ul class="navbar-nav me-auto mb-3 mb-lg-0">
+            <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+            <li class="nav-item"><a class="nav-link" href="catalogo.html">Catalogo</a></li>
+            <li class="nav-item"><a class="nav-link" href="personalizado.html">Personaliza tu torta</a></li>
+            <li class="nav-item"><a class="nav-link" href="mis-pedidos.html">Mis pedidos</a></li>
+          </ul>
+
+          <!-- Botón destacado. En móvil ocupa todo el ancho (d-grid) y
+               desde 992 px vuelve a su tamaño natural (d-lg-block) -->
+          <div class="d-grid d-lg-block">
+            <a class="btn btn-primary px-3" href="catalogo.html">Haz tu pedido</a>
+          </div>
+
+        </div>
+
+      </div>
+    </nav>
+  </header>
+
+
+  <main>
+
+    <!-- ====================================================================
+         SECCIÓN 1: Encabezado y resumen por estado
+         Saludo al cliente y seis tarjetas con el número de pedidos en cada
+         estado. Las seis insignias muestran los seis colores de estado
+         definidos en docs/datos-demo.md.
+         Rejilla: 2 columnas en móvil, 3 desde 768 px, 6 desde 992 px.
+         ==================================================================== -->
+    <section class="x7-fondo-crema py-5">
+      <div class="container py-lg-3">
+
+        <!-- Saludo al cliente -->
+        <div class="row justify-content-center text-center mb-5">
+          <div class="col-12 col-lg-8">
+
+            <p class="x7-superior mb-2">Mi cuenta</p>
+
+            <h1 class="display-5 mb-3">Mis pedidos</h1>
+
+            <!-- Estilos de párrafo de Bootstrap: párrafo destacado y atenuado -->
+            <p class="lead text-body-secondary mb-0">
+              Hola, Marisol Quispe. Tienes 6 pedidos registrados. Aqui puedes
+              revisar el estado de cada uno.
+            </p>
+
+          </div>
+        </div>
+
+        <!-- Tarjetas de resumen, una por estado -->
+        <div class="row row-cols-2 row-cols-md-3 row-cols-lg-6 g-3">
+
+          <article class="col">
+            <div class="card x7-tarjeta h-100 text-center">
+              <div class="card-body p-3">
+                <p class="display-6 mb-1">1</p>
+                <span class="badge text-bg-secondary">Registrado</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="col">
+            <div class="card x7-tarjeta h-100 text-center">
+              <div class="card-body p-3">
+                <p class="display-6 mb-1">1</p>
+                <span class="badge text-bg-info">Confirmado</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="col">
+            <div class="card x7-tarjeta h-100 text-center">
+              <div class="card-body p-3">
+                <p class="display-6 mb-1">1</p>
+                <span class="badge text-bg-warning">En preparacion</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="col">
+            <div class="card x7-tarjeta h-100 text-center">
+              <div class="card-body p-3">
+                <p class="display-6 mb-1">1</p>
+                <span class="badge text-bg-primary">Listo para entrega</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="col">
+            <div class="card x7-tarjeta h-100 text-center">
+              <div class="card-body p-3">
+                <p class="display-6 mb-1">1</p>
+                <span class="badge text-bg-success">Entregado</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="col">
+            <div class="card x7-tarjeta h-100 text-center">
+              <div class="card-body p-3">
+                <p class="display-6 mb-1">1</p>
+                <span class="badge text-bg-danger">Anulado</span>
+              </div>
+            </div>
+          </article>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ====================================================================
+         SECCIÓN 2: Tabla de pedidos
+         Tabla principal, con filas resaltadas al pasar el mouse.
+         Va dentro de table-responsive: en pantallas estrechas la tabla se
+         desplaza dentro de su propio recuadro y no empuja el resto de la
+         página, así que no aparece desplazamiento horizontal.
+         Las seis filas tienen la misma estructura y solo cambia el
+         contenido, para reemplazarlas por un th:each en el APF3.
+         ==================================================================== -->
+    <section class="py-5">
+      <div class="container">
+
+        <h2 class="h3 mb-4">Historial de pedidos</h2>
+
+        <div class="table-responsive">
+          <table class="table table-hover align-middle">
+
+            <caption class="text-body-secondary">
+              Pedidos registrados a nombre de Marisol Quispe.
+            </caption>
+
+            <thead>
+              <tr>
+                <th scope="col">Codigo</th>
+                <th scope="col">Fecha de pedido</th>
+                <th scope="col">Fecha de entrega</th>
+                <th scope="col">Productos</th>
+                <th scope="col">Total</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Acciones</th>
+              </tr>
+            </thead>
+
+            <tbody>
+
+              <!-- Pedido PED-0148 -->
+              <tr>
+                <th class="text-nowrap" scope="row">PED-0148</th>
+                <td class="text-nowrap">12/08/2026</td>
+                <td class="text-nowrap">17/08/2026</td>
+                <td>Torta tematica infantil, Cake pops tematicos</td>
+                <td class="text-nowrap">S/ 240.00</td>
+                <td><span class="badge text-bg-success">Entregado</span></td>
+                <td>
+                  <!-- Los atributos data- alimentan la ventana modal de detalle -->
+                  <button class="btn btn-sm btn-outline-primary text-nowrap" type="button"
+                          data-bs-toggle="modal" data-bs-target="#modal-pedido"
+                          data-codigo="PED-0148"
+                          data-pedido="12/08/2026"
+                          data-entrega="17/08/2026"
+                          data-productos="Torta tematica infantil, Cake pops tematicos"
+                          data-total="S/ 240.00"
+                          data-estado="Entregado"
+                          data-clase="text-bg-success">
+                    Ver detalle
+                  </button>
+                </td>
+              </tr>
+
+              <!-- Pedido PED-0152 -->
+              <tr>
+                <th class="text-nowrap" scope="row">PED-0152</th>
+                <td class="text-nowrap">20/08/2026</td>
+                <td class="text-nowrap">30/08/2026</td>
+                <td>Buffet de bocaditos para 50 personas</td>
+                <td class="text-nowrap">S/ 750.00</td>
+                <td><span class="badge text-bg-warning">En preparacion</span></td>
+                <td>
+                  <!-- Los atributos data- alimentan la ventana modal de detalle -->
+                  <button class="btn btn-sm btn-outline-primary text-nowrap" type="button"
+                          data-bs-toggle="modal" data-bs-target="#modal-pedido"
+                          data-codigo="PED-0152"
+                          data-pedido="20/08/2026"
+                          data-entrega="30/08/2026"
+                          data-productos="Buffet de bocaditos para 50 personas"
+                          data-total="S/ 750.00"
+                          data-estado="En preparacion"
+                          data-clase="text-bg-warning">
+                    Ver detalle
+                  </button>
+                </td>
+              </tr>
+
+              <!-- Pedido PED-0155 -->
+              <tr>
+                <th class="text-nowrap" scope="row">PED-0155</th>
+                <td class="text-nowrap">22/08/2026</td>
+                <td class="text-nowrap">28/08/2026</td>
+                <td>Bocaditos salados surtidos, Brownies en porciones</td>
+                <td class="text-nowrap">S/ 155.00</td>
+                <td><span class="badge text-bg-primary">Listo para entrega</span></td>
+                <td>
+                  <!-- Los atributos data- alimentan la ventana modal de detalle -->
+                  <button class="btn btn-sm btn-outline-primary text-nowrap" type="button"
+                          data-bs-toggle="modal" data-bs-target="#modal-pedido"
+                          data-codigo="PED-0155"
+                          data-pedido="22/08/2026"
+                          data-entrega="28/08/2026"
+                          data-productos="Bocaditos salados surtidos, Brownies en porciones"
+                          data-total="S/ 155.00"
+                          data-estado="Listo para entrega"
+                          data-clase="text-bg-primary">
+                    Ver detalle
+                  </button>
+                </td>
+              </tr>
+
+              <!-- Pedido PED-0157 -->
+              <tr>
+                <th class="text-nowrap" scope="row">PED-0157</th>
+                <td class="text-nowrap">24/08/2026</td>
+                <td class="text-nowrap">05/09/2026</td>
+                <td>Torta de dos pisos para matrimonio</td>
+                <td class="text-nowrap">S/ 320.00</td>
+                <td><span class="badge text-bg-info">Confirmado</span></td>
+                <td>
+                  <!-- Los atributos data- alimentan la ventana modal de detalle -->
+                  <button class="btn btn-sm btn-outline-primary text-nowrap" type="button"
+                          data-bs-toggle="modal" data-bs-target="#modal-pedido"
+                          data-codigo="PED-0157"
+                          data-pedido="24/08/2026"
+                          data-entrega="05/09/2026"
+                          data-productos="Torta de dos pisos para matrimonio"
+                          data-total="S/ 320.00"
+                          data-estado="Confirmado"
+                          data-clase="text-bg-info">
+                    Ver detalle
+                  </button>
+                </td>
+              </tr>
+
+              <!-- Pedido PED-0161 -->
+              <tr>
+                <th class="text-nowrap" scope="row">PED-0161</th>
+                <td class="text-nowrap">26/08/2026</td>
+                <td class="text-nowrap">02/09/2026</td>
+                <td>Torta de tres leches, Alfajores de maicena</td>
+                <td class="text-nowrap">S/ 130.00</td>
+                <td><span class="badge text-bg-secondary">Registrado</span></td>
+                <td>
+                  <!-- Los atributos data- alimentan la ventana modal de detalle -->
+                  <button class="btn btn-sm btn-outline-primary text-nowrap" type="button"
+                          data-bs-toggle="modal" data-bs-target="#modal-pedido"
+                          data-codigo="PED-0161"
+                          data-pedido="26/08/2026"
+                          data-entrega="02/09/2026"
+                          data-productos="Torta de tres leches, Alfajores de maicena"
+                          data-total="S/ 130.00"
+                          data-estado="Registrado"
+                          data-clase="text-bg-secondary">
+                    Ver detalle
+                  </button>
+                </td>
+              </tr>
+
+              <!-- Pedido PED-0163 -->
+              <tr>
+                <th class="text-nowrap" scope="row">PED-0163</th>
+                <td class="text-nowrap">27/08/2026</td>
+                <td class="text-nowrap">01/09/2026</td>
+                <td>Mini cupcakes decorados</td>
+                <td class="text-nowrap">S/ 80.00</td>
+                <td><span class="badge text-bg-danger">Anulado</span></td>
+                <td>
+                  <!-- Los atributos data- alimentan la ventana modal de detalle -->
+                  <button class="btn btn-sm btn-outline-primary text-nowrap" type="button"
+                          data-bs-toggle="modal" data-bs-target="#modal-pedido"
+                          data-codigo="PED-0163"
+                          data-pedido="27/08/2026"
+                          data-entrega="01/09/2026"
+                          data-productos="Mini cupcakes decorados"
+                          data-total="S/ 80.00"
+                          data-estado="Anulado"
+                          data-clase="text-bg-danger">
+                    Ver detalle
+                  </button>
+                </td>
+              </tr>
+
+            </tbody>
+
+          </table>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ====================================================================
+         SECCIÓN 3: Horario de atención
+         Segunda tabla de la página, con un estilo distinto al de la tabla
+         de pedidos: aquí se usan bordes y filas alternas en lugar de filas
+         resaltadas al pasar el mouse.
+         ==================================================================== -->
+    <section class="x7-fondo-crema py-5">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-12 col-md-10 col-lg-6">
+
+            <h2 class="h3 mb-4">Horario de atencion</h2>
+
+            <div class="table-responsive">
+              <table class="table table-bordered table-striped mb-0">
+
+                <caption class="text-body-secondary">
+                  Horario de la tienda para recojo de pedidos.
+                </caption>
+
+                <thead>
+                  <tr>
+                    <th scope="col">Dias</th>
+                    <th scope="col">Horario</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr>
+                    <th scope="row">Lunes a sabado</th>
+                    <td>9:00 a 20:00</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Domingo</th>
+                    <td>10:00 a 14:00</td>
+                  </tr>
+                </tbody>
+
+              </table>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ====================================================================
+         Ventana modal de detalle del pedido
+         Una sola ventana para los seis pedidos. Al pulsar "Ver detalle",
+         main.js lee los atributos data- de ese botón y escribe sus valores
+         aquí dentro. Es la misma técnica de la ventana del catálogo.
+         ==================================================================== -->
+    <div class="modal fade" id="modal-pedido" tabindex="-1" aria-labelledby="modal-pedido-titulo" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+          <div class="modal-header">
+            <h2 class="modal-title h5" id="modal-pedido-titulo">Detalle del pedido</h2>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+
+          <div class="modal-body">
+
+            <!-- Lista de descripción en dos columnas de la rejilla -->
+            <dl class="row mb-0">
+
+              <dt class="col-5">Codigo</dt>
+              <dd class="col-7" id="modal-pedido-codigo">Sin definir</dd>
+
+              <dt class="col-5">Fecha de pedido</dt>
+              <dd class="col-7" id="modal-pedido-fecha-pedido">Sin definir</dd>
+
+              <dt class="col-5">Fecha de entrega</dt>
+              <dd class="col-7" id="modal-pedido-fecha-entrega">Sin definir</dd>
+
+              <dt class="col-5">Productos</dt>
+              <dd class="col-7" id="modal-pedido-productos">Sin definir</dd>
+
+              <dt class="col-5">Total</dt>
+              <dd class="col-7" id="modal-pedido-total">Sin definir</dd>
+
+              <dt class="col-5">Estado</dt>
+              <dd class="col-7 mb-0">
+                <span class="badge text-bg-secondary" id="modal-pedido-estado">Sin definir</span>
+              </dd>
+
+            </dl>
+
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <a class="btn btn-primary" href="personalizado.html">Pedir de nuevo</a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+
+  <!-- ======================================================================
+       Pie de página
+       Tres columnas que se apilan en móvil: marca, enlaces y contacto.
+       Debajo, la línea de derechos.
+       ====================================================================== -->
+  <footer class="x7-footer pt-5 pb-4 mt-auto">
+    <div class="container">
+      <div class="row g-4">
+
+        <!-- Columna 1: marca y descripción del negocio -->
+        <div class="col-12 col-lg-5">
+
+          <p class="x7-marca d-flex align-items-center gap-2 mb-3">
+            <img src="../static/img/logo.svg" alt="Logotipo de X7 Pasteleria y Catering" width="36" height="36">
+            <span>X7</span>
+          </p>
+
+          <p class="mb-0">
+            Pasteleria y catering en Ica. Tortas decoradas por encargo, bocaditos tematicos
+            y buffets para reuniones familiares y corporativas.
+          </p>
+
+        </div>
+
+        <!-- Columna 2: enlaces a las cuatro páginas del sitio -->
+        <div class="col-12 col-sm-6 col-lg-3">
+          <h2 class="h6 text-uppercase mb-3">Enlaces</h2>
+          <ul class="list-unstyled d-grid gap-2 mb-0">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="catalogo.html">Catalogo</a></li>
+            <li><a href="personalizado.html">Personaliza tu torta</a></li>
+            <li><a href="mis-pedidos.html">Mis pedidos</a></li>
+          </ul>
+        </div>
+
+        <!-- Columna 3: datos de contacto, horario y redes sociales -->
+        <div class="col-12 col-sm-6 col-lg-4">
+
+          <h2 class="h6 text-uppercase mb-3">Contacto</h2>
+
+          <ul class="list-unstyled d-grid gap-2 mb-3">
+            <li class="d-flex gap-2">
+              <i class="bi bi-geo-alt flex-shrink-0 mt-1" aria-hidden="true"></i>
+              <span>[direccion pendiente], Ica, Peru</span>
+            </li>
+            <li class="d-flex gap-2">
+              <i class="bi bi-telephone flex-shrink-0 mt-1" aria-hidden="true"></i>
+              <span>[telefono pendiente]</span>
+            </li>
+            <li class="d-flex gap-2">
+              <i class="bi bi-envelope flex-shrink-0 mt-1" aria-hidden="true"></i>
+              <a href="mailto:contacto@x7.pe">contacto@x7.pe</a>
+            </li>
+            <li class="d-flex gap-2">
+              <i class="bi bi-clock flex-shrink-0 mt-1" aria-hidden="true"></i>
+              <span>Lunes a sabado de 9:00 a 20:00. Domingos de 10:00 a 14:00.</span>
+            </li>
+          </ul>
+
+          <!-- Redes sociales -->
+          <ul class="list-unstyled d-flex gap-2 mb-0">
+            <li>
+              <a class="x7-red-social d-inline-flex align-items-center justify-content-center rounded-circle"
+                 href="https://www.facebook.com/" aria-label="Facebook de X7">
+                <i class="bi bi-facebook" aria-hidden="true"></i>
+              </a>
+            </li>
+            <li>
+              <a class="x7-red-social d-inline-flex align-items-center justify-content-center rounded-circle"
+                 href="https://www.instagram.com/" aria-label="Instagram de X7">
+                <i class="bi bi-instagram" aria-hidden="true"></i>
+              </a>
+            </li>
+            <li>
+              <a class="x7-red-social d-inline-flex align-items-center justify-content-center rounded-circle"
+                 href="https://www.tiktok.com/" aria-label="TikTok de X7">
+                <i class="bi bi-tiktok" aria-hidden="true"></i>
+              </a>
+            </li>
+            <li>
+              <a class="x7-red-social d-inline-flex align-items-center justify-content-center rounded-circle"
+                 href="https://wa.me/" aria-label="WhatsApp de X7">
+                <i class="bi bi-whatsapp" aria-hidden="true"></i>
+              </a>
+            </li>
+          </ul>
+
+        </div>
+
+      </div>
+
+      <!-- Línea de derechos -->
+      <p class="x7-derechos text-center mt-4 pt-3 mb-0">
+        2026 X7 Pasteleria y Catering. Ica, Peru. Proyecto academico del curso Marcos de Desarrollo Web.
+      </p>
+
+    </div>
+  </footer>
+
+
+  <!-- Scripts al final del body: primero Bootstrap, luego el propio -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../static/js/main.js"></script>
+
+</body>
+
+</html>

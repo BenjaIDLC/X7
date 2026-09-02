@@ -1,0 +1,466 @@
+<!--
+  ============================================================================
+  Archivo:     templates/personalizado.html
+  Propósito:   Formulario de encargo de torta a medida del sitio X7. Recoge
+               los datos del pedido y muestra al costado las condiciones del
+               encargo.
+  Integrante:  ______________________________
+
+  Contiene dos secciones:
+    1. Encabezado de página
+    2. Formulario de encargo y condiciones, en dos columnas desde 992 px
+
+  La cabecera, la barra de navegación y el pie son copia exacta de los
+  archivos de templates/fragments/. No se editan aquí.
+  ============================================================================
+-->
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+  <!-- Etiquetas obligatorias: juego de caracteres y adaptación a móvil -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Pasteleria y catering en Ica. Tortas decoradas por encargo, bocaditos tematicos y buffets para eventos.">
+
+  <!-- Título propio de cada página -->
+  <title>Personaliza tu torta | X7 Pasteleria y Catering</title>
+
+  <!-- Tipografías de marca: Playfair Display para títulos, Inter para texto -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap 5.3 y Bootstrap Icons, ambos por CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+  <!-- Hoja propia. Va al final para que sus colores ganen a los de Bootstrap -->
+  <link href="../static/css/estilos.css" rel="stylesheet">
+
+  <!-- Icono de la pestaña del navegador -->
+  <link rel="icon" href="../static/img/logo.svg" type="image/svg+xml">
+
+</head>
+
+<!-- El body es una columna de alto completo para que el pie quede abajo
+     aunque la página tenga poco contenido -->
+<body class="d-flex flex-column min-vh-100">
+
+  <!-- ======================================================================
+       Barra de navegación
+       Se queda pegada arriba al desplazar (sticky-top) y se convierte en
+       menú desplegable por debajo de 992 px (navbar-expand-lg).
+       ====================================================================== -->
+  <header class="sticky-top">
+    <nav class="navbar navbar-expand-lg x7-navbar" aria-label="Navegacion principal">
+      <div class="container">
+
+        <!-- Marca: logotipo y nombre del negocio -->
+        <a class="navbar-brand x7-marca d-flex align-items-center gap-2" href="index.html">
+          <img src="../static/img/logo.svg" alt="Logotipo de X7 Pasteleria y Catering" width="36" height="36">
+          <span>X7</span>
+        </a>
+
+        <!-- Botón de hamburguesa, visible solo en pantallas pequeñas -->
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+                data-bs-target="#x7-menu" aria-controls="x7-menu" aria-expanded="false"
+                aria-label="Abrir o cerrar el menu de navegacion">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Contenido que se colapsa en móvil -->
+        <div class="collapse navbar-collapse" id="x7-menu">
+
+          <!-- Enlaces a las cuatro páginas del sitio -->
+          <ul class="navbar-nav me-auto mb-3 mb-lg-0">
+            <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+            <li class="nav-item"><a class="nav-link" href="catalogo.html">Catalogo</a></li>
+            <li class="nav-item"><a class="nav-link" href="personalizado.html">Personaliza tu torta</a></li>
+            <li class="nav-item"><a class="nav-link" href="mis-pedidos.html">Mis pedidos</a></li>
+          </ul>
+
+          <!-- Botón destacado. En móvil ocupa todo el ancho (d-grid) y
+               desde 992 px vuelve a su tamaño natural (d-lg-block) -->
+          <div class="d-grid d-lg-block">
+            <a class="btn btn-primary px-3" href="catalogo.html">Haz tu pedido</a>
+          </div>
+
+        </div>
+
+      </div>
+    </nav>
+  </header>
+
+
+  <main>
+
+    <!-- ====================================================================
+         SECCIÓN 1: Encabezado de página
+         Título de la página y descripción breve.
+         ==================================================================== -->
+    <section class="x7-fondo-crema py-5">
+      <div class="container py-lg-3">
+        <div class="row justify-content-center text-center">
+          <div class="col-12 col-lg-8">
+
+            <p class="x7-superior mb-2">Encargo a medida</p>
+
+            <h1 class="display-5 mb-3">Personaliza tu torta</h1>
+
+            <!-- Estilos de párrafo de Bootstrap: párrafo destacado y atenuado -->
+            <p class="lead text-body-secondary mb-0">
+              Cuentanos como la imaginas y te respondemos con una propuesta y el
+              precio final antes de confirmar el pedido.
+            </p>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ====================================================================
+         SECCIÓN 2: Formulario de encargo y condiciones
+         Dos columnas desde 992 px: el formulario ocupa ocho y las
+         condiciones cuatro. En móvil se apilan, primero el formulario.
+         ==================================================================== -->
+    <section class="py-5">
+      <div class="container">
+
+        <!-- Separación g-4 y no mayor: un espacio de rejilla mas grande usa
+             margenes negativos que se salen del contenedor en pantallas
+             estrechas y provocan desplazamiento horizontal. -->
+        <div class="row g-4">
+
+          <!-- ================= Columna del formulario ================= -->
+          <div class="col-12 col-lg-8">
+
+            <!-- Alerta con el aviso de anticipación mínima -->
+            <div class="alert alert-warning d-flex gap-2" role="alert">
+              <i class="bi bi-exclamation-triangle flex-shrink-0 mt-1" aria-hidden="true"></i>
+              <span>
+                Los encargos personalizados necesitan <strong>72 horas de anticipacion</strong>.
+                Para fechas mas cercanas, revisa el <a href="catalogo.html">catalogo</a>.
+              </span>
+            </div>
+
+            <h2 class="h4 mb-3">Datos del pedido</h2>
+
+            <!-- Estilos de párrafo de Bootstrap: nota en texto pequeño y atenuado -->
+            <p class="small text-body-secondary mb-4">
+              Los campos marcados con <span class="text-danger">*</span> son obligatorios.
+            </p>
+
+            <!-- El atributo action apunta a una ruta de reemplazo que en el APF2
+                 atendera el controlador de Spring. Hoy el formulario no procesa
+                 nada. Lleva enctype porque incluye un campo de archivo. -->
+            <form action="encargo" method="post" enctype="multipart/form-data">
+              <div class="row g-3">
+
+                <!-- Nombre completo -->
+                <div class="col-12 col-md-6">
+                  <label class="form-label" for="pedido-nombre">
+                    Nombre completo <span class="text-danger">*</span>
+                  </label>
+                  <input class="form-control" type="text" id="pedido-nombre" name="nombre"
+                         placeholder="Nombre y apellido" required>
+                </div>
+
+                <!-- Correo electrónico -->
+                <div class="col-12 col-md-6">
+                  <label class="form-label" for="pedido-correo">
+                    Correo electronico <span class="text-danger">*</span>
+                  </label>
+                  <input class="form-control" type="email" id="pedido-correo" name="correo"
+                         placeholder="nombre@correo.com" required>
+                </div>
+
+                <!-- Teléfono -->
+                <div class="col-12 col-md-6">
+                  <label class="form-label" for="pedido-telefono">
+                    Telefono <span class="text-danger">*</span>
+                  </label>
+                  <input class="form-control" type="tel" id="pedido-telefono" name="telefono"
+                         placeholder="Numero de contacto" required>
+                  <div class="form-text">Te escribimos por WhatsApp a este numero.</div>
+                </div>
+
+                <!-- Fecha de entrega -->
+                <div class="col-12 col-md-6">
+                  <label class="form-label" for="pedido-fecha">
+                    Fecha de entrega <span class="text-danger">*</span>
+                  </label>
+                  <input class="form-control" type="date" id="pedido-fecha" name="fecha" required>
+                  <div class="form-text">Al menos 72 horas despues de hoy.</div>
+                </div>
+
+                <!-- Hora de entrega -->
+                <div class="col-12 col-md-6">
+                  <label class="form-label" for="pedido-hora">Hora de entrega aproximada</label>
+                  <input class="form-control" type="time" id="pedido-hora" name="hora">
+                  <div class="form-text">Atendemos de 9:00 a 20:00.</div>
+                </div>
+
+                <!-- Número de porciones -->
+                <div class="col-12 col-md-6">
+                  <label class="form-label" for="pedido-porciones">Numero de porciones</label>
+                  <input class="form-control" type="number" id="pedido-porciones" name="porciones"
+                         min="10" step="1" placeholder="20">
+                  <div class="form-text">Minimo 10 porciones.</div>
+                </div>
+
+                <!-- Sabor de bizcocho -->
+                <div class="col-12 col-md-6">
+                  <label class="form-label" for="pedido-bizcocho">Sabor de bizcocho</label>
+                  <select class="form-select" id="pedido-bizcocho" name="bizcocho">
+                    <option value="" selected disabled>Selecciona</option>
+                    <option value="vainilla">Vainilla</option>
+                    <option value="chocolate">Chocolate</option>
+                    <option value="red-velvet">Red velvet</option>
+                    <option value="zanahoria">Zanahoria</option>
+                    <option value="naranja">Naranja</option>
+                  </select>
+                </div>
+
+                <!-- Relleno -->
+                <div class="col-12 col-md-6">
+                  <label class="form-label" for="pedido-relleno">Relleno</label>
+                  <select class="form-select" id="pedido-relleno" name="relleno">
+                    <option value="" selected disabled>Selecciona</option>
+                    <option value="manjar-blanco">Manjar blanco</option>
+                    <option value="fudge">Fudge de chocolate</option>
+                    <option value="crema-pastelera">Crema pastelera</option>
+                    <option value="mermelada-fresa">Mermelada de fresa</option>
+                    <option value="crema-maracuya">Crema de maracuya</option>
+                    <option value="queso-crema">Queso crema</option>
+                  </select>
+                </div>
+
+                <!-- Tema o motivo decorativo -->
+                <div class="col-12">
+                  <label class="form-label" for="pedido-tema">Tema o motivo decorativo</label>
+                  <input class="form-control" type="text" id="pedido-tema" name="tema"
+                         placeholder="Personaje, colores o motivo de la decoracion">
+                </div>
+
+                <!-- Descripción del pedido, con contador de caracteres.
+                     El numero lo actualiza main.js en cada tecla. -->
+                <div class="col-12">
+                  <label class="form-label" for="pedido-descripcion">Descripcion del pedido</label>
+                  <textarea class="form-control" id="pedido-descripcion" name="descripcion"
+                            rows="4" maxlength="300"
+                            placeholder="Cuentanos los detalles: forma, colores, textos sobre la torta"></textarea>
+                  <div class="form-text">
+                    Quedan <span id="pedido-contador">300</span> caracteres.
+                  </div>
+                </div>
+
+                <!-- Imagen de referencia -->
+                <div class="col-12">
+                  <label class="form-label" for="pedido-imagen">Imagen de referencia</label>
+                  <input class="form-control" type="file" id="pedido-imagen" name="imagen"
+                         accept="image/*">
+                  <div class="form-text">Opcional. Una foto o dibujo que sirva de guia.</div>
+                </div>
+
+                <!-- Modalidad de entrega. Los radios van dentro de un fieldset
+                     para que su titulo comun se lea como grupo. -->
+                <div class="col-12">
+                  <fieldset>
+                    <legend class="form-label mb-2">Modalidad de entrega</legend>
+
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="modalidad"
+                             id="pedido-recojo" value="recojo" checked>
+                      <label class="form-check-label" for="pedido-recojo">Recojo en tienda</label>
+                    </div>
+
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="modalidad"
+                             id="pedido-domicilio" value="domicilio">
+                      <label class="form-check-label" for="pedido-domicilio">Entrega a domicilio</label>
+                    </div>
+                  </fieldset>
+                </div>
+
+                <!-- Aceptación de condiciones -->
+                <div class="col-12">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="pedido-condiciones"
+                           name="condiciones" value="aceptado" required>
+                    <label class="form-check-label" for="pedido-condiciones">
+                      Acepto las condiciones del encargo <span class="text-danger">*</span>
+                    </label>
+                  </div>
+                </div>
+
+                <!-- Botón de envío -->
+                <div class="col-12 d-grid d-sm-block">
+                  <button class="btn btn-primary btn-lg px-4" type="submit">Enviar solicitud</button>
+                </div>
+
+              </div>
+            </form>
+
+          </div>
+
+          <!-- ================= Columna de condiciones ================= -->
+          <aside class="col-12 col-lg-4">
+            <div class="card x7-tarjeta">
+              <div class="card-body p-4">
+
+                <h2 class="h5 card-title mb-3">Condiciones del encargo</h2>
+
+                <!-- Grupo de lista de Bootstrap, sin bordes laterales -->
+                <ul class="list-group list-group-flush mb-0">
+
+                  <li class="list-group-item px-0">
+                    <span class="d-block fw-semibold">Anticipacion minima</span>
+                    <span class="small text-body-secondary">
+                      72 horas antes de la fecha de entrega.
+                    </span>
+                  </li>
+
+                  <li class="list-group-item px-0">
+                    <span class="d-block fw-semibold">Adelanto</span>
+                    <span class="small text-body-secondary">
+                      50 por ciento del total para confirmar el pedido.
+                    </span>
+                  </li>
+
+                  <li class="list-group-item px-0">
+                    <span class="d-block fw-semibold">Cambios en el pedido</span>
+                    <span class="small text-body-secondary">
+                      [politica de cambios pendiente]
+                    </span>
+                  </li>
+
+                  <li class="list-group-item px-0">
+                    <span class="d-block fw-semibold">Horario de atencion</span>
+                    <span class="small text-body-secondary">
+                      Lunes a sabado de 9:00 a 20:00. Domingos de 10:00 a 14:00.
+                    </span>
+                  </li>
+
+                </ul>
+
+              </div>
+            </div>
+          </aside>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- ======================================================================
+       Pie de página
+       Tres columnas que se apilan en móvil: marca, enlaces y contacto.
+       Debajo, la línea de derechos.
+       ====================================================================== -->
+  <footer class="x7-footer pt-5 pb-4 mt-auto">
+    <div class="container">
+      <div class="row g-4">
+
+        <!-- Columna 1: marca y descripción del negocio -->
+        <div class="col-12 col-lg-5">
+
+          <p class="x7-marca d-flex align-items-center gap-2 mb-3">
+            <img src="../static/img/logo.svg" alt="Logotipo de X7 Pasteleria y Catering" width="36" height="36">
+            <span>X7</span>
+          </p>
+
+          <p class="mb-0">
+            Pasteleria y catering en Ica. Tortas decoradas por encargo, bocaditos tematicos
+            y buffets para reuniones familiares y corporativas.
+          </p>
+
+        </div>
+
+        <!-- Columna 2: enlaces a las cuatro páginas del sitio -->
+        <div class="col-12 col-sm-6 col-lg-3">
+          <h2 class="h6 text-uppercase mb-3">Enlaces</h2>
+          <ul class="list-unstyled d-grid gap-2 mb-0">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="catalogo.html">Catalogo</a></li>
+            <li><a href="personalizado.html">Personaliza tu torta</a></li>
+            <li><a href="mis-pedidos.html">Mis pedidos</a></li>
+          </ul>
+        </div>
+
+        <!-- Columna 3: datos de contacto, horario y redes sociales -->
+        <div class="col-12 col-sm-6 col-lg-4">
+
+          <h2 class="h6 text-uppercase mb-3">Contacto</h2>
+
+          <ul class="list-unstyled d-grid gap-2 mb-3">
+            <li class="d-flex gap-2">
+              <i class="bi bi-geo-alt flex-shrink-0 mt-1" aria-hidden="true"></i>
+              <span>[direccion pendiente], Ica, Peru</span>
+            </li>
+            <li class="d-flex gap-2">
+              <i class="bi bi-telephone flex-shrink-0 mt-1" aria-hidden="true"></i>
+              <span>[telefono pendiente]</span>
+            </li>
+            <li class="d-flex gap-2">
+              <i class="bi bi-envelope flex-shrink-0 mt-1" aria-hidden="true"></i>
+              <a href="mailto:contacto@x7.pe">contacto@x7.pe</a>
+            </li>
+            <li class="d-flex gap-2">
+              <i class="bi bi-clock flex-shrink-0 mt-1" aria-hidden="true"></i>
+              <span>Lunes a sabado de 9:00 a 20:00. Domingos de 10:00 a 14:00.</span>
+            </li>
+          </ul>
+
+          <!-- Redes sociales -->
+          <ul class="list-unstyled d-flex gap-2 mb-0">
+            <li>
+              <a class="x7-red-social d-inline-flex align-items-center justify-content-center rounded-circle"
+                 href="https://www.facebook.com/" aria-label="Facebook de X7">
+                <i class="bi bi-facebook" aria-hidden="true"></i>
+              </a>
+            </li>
+            <li>
+              <a class="x7-red-social d-inline-flex align-items-center justify-content-center rounded-circle"
+                 href="https://www.instagram.com/" aria-label="Instagram de X7">
+                <i class="bi bi-instagram" aria-hidden="true"></i>
+              </a>
+            </li>
+            <li>
+              <a class="x7-red-social d-inline-flex align-items-center justify-content-center rounded-circle"
+                 href="https://www.tiktok.com/" aria-label="TikTok de X7">
+                <i class="bi bi-tiktok" aria-hidden="true"></i>
+              </a>
+            </li>
+            <li>
+              <a class="x7-red-social d-inline-flex align-items-center justify-content-center rounded-circle"
+                 href="https://wa.me/" aria-label="WhatsApp de X7">
+                <i class="bi bi-whatsapp" aria-hidden="true"></i>
+              </a>
+            </li>
+          </ul>
+
+        </div>
+
+      </div>
+
+      <!-- Línea de derechos -->
+      <p class="x7-derechos text-center mt-4 pt-3 mb-0">
+        2026 X7 Pasteleria y Catering. Ica, Peru. Proyecto academico del curso Marcos de Desarrollo Web.
+      </p>
+
+    </div>
+  </footer>
+
+
+  <!-- Scripts al final del body: primero Bootstrap, luego el propio -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../static/js/main.js"></script>
+
+</body>
+
+</html>

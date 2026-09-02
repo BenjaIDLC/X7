@@ -1,0 +1,1035 @@
+<!--
+  ============================================================================
+  Archivo:     templates/catalogo.html
+  Propósito:   Catálogo completo del sitio X7. Muestra los quince productos
+               de docs/datos-demo.md, permite filtrarlos por categoría y abre
+               una única ventana modal con el detalle del producto pulsado.
+  Integrante:  ______________________________
+
+  Contiene dos secciones y una ventana modal:
+    1. Encabezado de página
+    2. Filtros y rejilla de productos, con paginación
+    Ventana modal de vista rápida, reutilizada por las quince tarjetas
+
+  La cabecera, la barra de navegación y el pie son copia exacta de los
+  archivos de templates/fragments/. No se editan aquí.
+  ============================================================================
+-->
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+  <!-- Etiquetas obligatorias: juego de caracteres y adaptación a móvil -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Pasteleria y catering en Ica. Tortas decoradas por encargo, bocaditos tematicos y buffets para eventos.">
+
+  <!-- Título propio de cada página -->
+  <title>Catalogo | X7 Pasteleria y Catering</title>
+
+  <!-- Tipografías de marca: Playfair Display para títulos, Inter para texto -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap 5.3 y Bootstrap Icons, ambos por CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+  <!-- Hoja propia. Va al final para que sus colores ganen a los de Bootstrap -->
+  <link href="../static/css/estilos.css" rel="stylesheet">
+
+  <!-- Icono de la pestaña del navegador -->
+  <link rel="icon" href="../static/img/logo.svg" type="image/svg+xml">
+
+</head>
+
+<!-- El body es una columna de alto completo para que el pie quede abajo
+     aunque la página tenga poco contenido -->
+<body class="d-flex flex-column min-vh-100">
+
+  <!-- ======================================================================
+       Barra de navegación
+       Se queda pegada arriba al desplazar (sticky-top) y se convierte en
+       menú desplegable por debajo de 992 px (navbar-expand-lg).
+       ====================================================================== -->
+  <header class="sticky-top">
+    <nav class="navbar navbar-expand-lg x7-navbar" aria-label="Navegacion principal">
+      <div class="container">
+
+        <!-- Marca: logotipo y nombre del negocio -->
+        <a class="navbar-brand x7-marca d-flex align-items-center gap-2" href="index.html">
+          <img src="../static/img/logo.svg" alt="Logotipo de X7 Pasteleria y Catering" width="36" height="36">
+          <span>X7</span>
+        </a>
+
+        <!-- Botón de hamburguesa, visible solo en pantallas pequeñas -->
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+                data-bs-target="#x7-menu" aria-controls="x7-menu" aria-expanded="false"
+                aria-label="Abrir o cerrar el menu de navegacion">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Contenido que se colapsa en móvil -->
+        <div class="collapse navbar-collapse" id="x7-menu">
+
+          <!-- Enlaces a las cuatro páginas del sitio -->
+          <ul class="navbar-nav me-auto mb-3 mb-lg-0">
+            <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+            <li class="nav-item"><a class="nav-link" href="catalogo.html">Catalogo</a></li>
+            <li class="nav-item"><a class="nav-link" href="personalizado.html">Personaliza tu torta</a></li>
+            <li class="nav-item"><a class="nav-link" href="mis-pedidos.html">Mis pedidos</a></li>
+          </ul>
+
+          <!-- Botón destacado. En móvil ocupa todo el ancho (d-grid) y
+               desde 992 px vuelve a su tamaño natural (d-lg-block) -->
+          <div class="d-grid d-lg-block">
+            <a class="btn btn-primary px-3" href="catalogo.html">Haz tu pedido</a>
+          </div>
+
+        </div>
+
+      </div>
+    </nav>
+  </header>
+
+
+  <main>
+
+    <!-- ====================================================================
+         SECCIÓN 1: Encabezado de página
+         Título de la página y descripción breve.
+         ==================================================================== -->
+    <section class="x7-fondo-crema py-5">
+      <div class="container py-lg-3">
+        <div class="row justify-content-center text-center">
+          <div class="col-12 col-lg-8">
+
+            <p class="x7-superior mb-2">Catalogo</p>
+
+            <h1 class="display-5 mb-3">Nuestros productos</h1>
+
+            <!-- Estilos de párrafo de Bootstrap: párrafo destacado y atenuado -->
+            <p class="lead text-body-secondary mb-0">
+              Quince opciones de tortas, bocaditos y buffets, con precios referenciales.
+              Todo se prepara por encargo, con 72 horas de anticipacion.
+            </p>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ====================================================================
+         SECCIÓN 2: Filtros y rejilla de productos
+         Los cuatro botones filtran las tarjetas sin recargar la página.
+         Cada botón lleva data-filtro y cada tarjeta data-categoria; main.js
+         compara los dos valores y agrega o quita la clase d-none.
+         Rejilla: 1 columna en móvil, 2 desde 576 px, 3 desde 992 px.
+         ==================================================================== -->
+    <section class="py-5">
+      <div class="container">
+
+        <!-- Barra de filtros. Grupo de botones de Bootstrap -->
+        <div class="d-flex justify-content-center mb-5">
+          <div class="btn-group flex-wrap" role="group" aria-label="Filtrar productos por categoria">
+            <button class="btn btn-outline-primary active" type="button" data-filtro="todos">Todos</button>
+            <button class="btn btn-outline-primary" type="button" id="tortas" data-filtro="tortas">Tortas</button>
+            <button class="btn btn-outline-primary" type="button" id="bocaditos" data-filtro="bocaditos">Bocaditos</button>
+            <button class="btn btn-outline-primary" type="button" id="buffets" data-filtro="buffets">Buffets</button>
+          </div>
+        </div>
+
+        <!-- Rejilla con los quince productos de docs/datos-demo.md.
+             Las quince tarjetas tienen la misma estructura y solo cambia el
+             contenido, para reemplazarlas por un th:each en el APF3. -->
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4">
+
+          <!-- ============ Producto P01 ============ -->
+          <article class="col" data-categoria="tortas">
+            <div class="card x7-tarjeta h-100 overflow-hidden">
+
+              <img class="card-img-top x7-imagen-4-3" src="../static/img/productos/p01.jpg"
+                   alt="Torta de chocolate cubierta con fudge">
+
+              <div class="card-body d-flex flex-column">
+
+                <!-- Insignia con la categoria del producto -->
+                <span class="badge text-bg-secondary align-self-start mb-2">Tortas decoradas</span>
+
+                <h2 class="h5 card-title mb-2">Torta de chocolate con fudge</h2>
+
+                <!-- Estilos de parrafo de Bootstrap: texto pequeno y atenuado -->
+                <p class="card-text small text-body-secondary flex-grow-1">
+                  Bizcocho de cacao con relleno de fudge y cobertura de chocolate.
+                </p>
+
+                <p class="mb-3">
+                  <span class="x7-precio">S/ 95.00</span>
+                  <span class="small text-body-secondary">20 porciones</span>
+                </p>
+
+                <div class="d-grid gap-2">
+                  <a class="btn btn-primary" href="personalizado.html">Pedir</a>
+
+                  <!-- Los atributos data- alimentan la unica ventana modal.
+                       main.js los lee con dataset cuando se pulsa el boton. -->
+                  <button class="btn btn-outline-primary" type="button"
+                          data-bs-toggle="modal" data-bs-target="#modal-producto"
+                          data-codigo="P01"
+                          data-nombre="Torta de chocolate con fudge"
+                          data-etiqueta="Tortas decoradas"
+                          data-descripcion="Bizcocho de cacao con relleno de fudge y cobertura de chocolate."
+                          data-precio="S/ 95.00"
+                          data-presentacion="20 porciones"
+                          data-imagen="../static/img/productos/p01.jpg"
+                          data-alt="Torta de chocolate cubierta con fudge">
+                    <i class="bi bi-eye me-1" aria-hidden="true"></i>Vista rapida
+                  </button>
+                </div>
+
+              </div>
+            </div>
+          </article>
+
+          <!-- ============ Producto P02 ============ -->
+          <article class="col" data-categoria="tortas">
+            <div class="card x7-tarjeta h-100 overflow-hidden">
+
+              <img class="card-img-top x7-imagen-4-3" src="../static/img/productos/p02.jpg"
+                   alt="Torta de tres leches cubierta con merengue italiano">
+
+              <div class="card-body d-flex flex-column">
+
+                <!-- Insignia con la categoria del producto -->
+                <span class="badge text-bg-secondary align-self-start mb-2">Tortas decoradas</span>
+
+                <h2 class="h5 card-title mb-2">Torta de tres leches</h2>
+
+                <!-- Estilos de parrafo de Bootstrap: texto pequeno y atenuado -->
+                <p class="card-text small text-body-secondary flex-grow-1">
+                  Bizcocho humedo banado en tres leches y merengue italiano.
+                </p>
+
+                <p class="mb-3">
+                  <span class="x7-precio">S/ 85.00</span>
+                  <span class="small text-body-secondary">20 porciones</span>
+                </p>
+
+                <div class="d-grid gap-2">
+                  <a class="btn btn-primary" href="personalizado.html">Pedir</a>
+
+                  <!-- Los atributos data- alimentan la unica ventana modal.
+                       main.js los lee con dataset cuando se pulsa el boton. -->
+                  <button class="btn btn-outline-primary" type="button"
+                          data-bs-toggle="modal" data-bs-target="#modal-producto"
+                          data-codigo="P02"
+                          data-nombre="Torta de tres leches"
+                          data-etiqueta="Tortas decoradas"
+                          data-descripcion="Bizcocho humedo banado en tres leches y merengue italiano."
+                          data-precio="S/ 85.00"
+                          data-presentacion="20 porciones"
+                          data-imagen="../static/img/productos/p02.jpg"
+                          data-alt="Torta de tres leches cubierta con merengue italiano">
+                    <i class="bi bi-eye me-1" aria-hidden="true"></i>Vista rapida
+                  </button>
+                </div>
+
+              </div>
+            </div>
+          </article>
+
+          <!-- ============ Producto P03 ============ -->
+          <article class="col" data-categoria="tortas">
+            <div class="card x7-tarjeta h-100 overflow-hidden">
+
+              <img class="card-img-top x7-imagen-4-3" src="../static/img/productos/p03.jpg"
+                   alt="Torta de vainilla con fresas frescas y crema chantilly">
+
+              <div class="card-body d-flex flex-column">
+
+                <!-- Insignia con la categoria del producto -->
+                <span class="badge text-bg-secondary align-self-start mb-2">Tortas decoradas</span>
+
+                <h2 class="h5 card-title mb-2">Torta de fresas con crema</h2>
+
+                <!-- Estilos de parrafo de Bootstrap: texto pequeno y atenuado -->
+                <p class="card-text small text-body-secondary flex-grow-1">
+                  Bizcocho de vainilla con fresas frescas y crema chantilly.
+                </p>
+
+                <p class="mb-3">
+                  <span class="x7-precio">S/ 110.00</span>
+                  <span class="small text-body-secondary">20 porciones</span>
+                </p>
+
+                <div class="d-grid gap-2">
+                  <a class="btn btn-primary" href="personalizado.html">Pedir</a>
+
+                  <!-- Los atributos data- alimentan la unica ventana modal.
+                       main.js los lee con dataset cuando se pulsa el boton. -->
+                  <button class="btn btn-outline-primary" type="button"
+                          data-bs-toggle="modal" data-bs-target="#modal-producto"
+                          data-codigo="P03"
+                          data-nombre="Torta de fresas con crema"
+                          data-etiqueta="Tortas decoradas"
+                          data-descripcion="Bizcocho de vainilla con fresas frescas y crema chantilly."
+                          data-precio="S/ 110.00"
+                          data-presentacion="20 porciones"
+                          data-imagen="../static/img/productos/p03.jpg"
+                          data-alt="Torta de vainilla con fresas frescas y crema chantilly">
+                    <i class="bi bi-eye me-1" aria-hidden="true"></i>Vista rapida
+                  </button>
+                </div>
+
+              </div>
+            </div>
+          </article>
+
+          <!-- ============ Producto P04 ============ -->
+          <article class="col" data-categoria="tortas">
+            <div class="card x7-tarjeta h-100 overflow-hidden">
+
+              <img class="card-img-top x7-imagen-4-3" src="../static/img/productos/p04.jpg"
+                   alt="Torta tematica infantil decorada segun el personaje elegido">
+
+              <div class="card-body d-flex flex-column">
+
+                <!-- Insignia con la categoria del producto -->
+                <span class="badge text-bg-secondary align-self-start mb-2">Tortas decoradas</span>
+
+                <h2 class="h5 card-title mb-2">Torta tematica infantil</h2>
+
+                <!-- Estilos de parrafo de Bootstrap: texto pequeno y atenuado -->
+                <p class="card-text small text-body-secondary flex-grow-1">
+                  Decoracion personalizada segun el personaje o motivo elegido.
+                </p>
+
+                <p class="mb-3">
+                  <span class="x7-precio">S/ 150.00</span>
+                  <span class="small text-body-secondary">25 porciones</span>
+                </p>
+
+                <div class="d-grid gap-2">
+                  <a class="btn btn-primary" href="personalizado.html">Pedir</a>
+
+                  <!-- Los atributos data- alimentan la unica ventana modal.
+                       main.js los lee con dataset cuando se pulsa el boton. -->
+                  <button class="btn btn-outline-primary" type="button"
+                          data-bs-toggle="modal" data-bs-target="#modal-producto"
+                          data-codigo="P04"
+                          data-nombre="Torta tematica infantil"
+                          data-etiqueta="Tortas decoradas"
+                          data-descripcion="Decoracion personalizada segun el personaje o motivo elegido."
+                          data-precio="S/ 150.00"
+                          data-presentacion="25 porciones"
+                          data-imagen="../static/img/productos/p04.jpg"
+                          data-alt="Torta tematica infantil decorada segun el personaje elegido">
+                    <i class="bi bi-eye me-1" aria-hidden="true"></i>Vista rapida
+                  </button>
+                </div>
+
+              </div>
+            </div>
+          </article>
+
+          <!-- ============ Producto P05 ============ -->
+          <article class="col" data-categoria="tortas">
+            <div class="card x7-tarjeta h-100 overflow-hidden">
+
+              <img class="card-img-top x7-imagen-4-3" src="../static/img/productos/p05.jpg"
+                   alt="Torta de dos pisos con acabado en fondant y detalles florales">
+
+              <div class="card-body d-flex flex-column">
+
+                <!-- Insignia con la categoria del producto -->
+                <span class="badge text-bg-secondary align-self-start mb-2">Tortas decoradas</span>
+
+                <h2 class="h5 card-title mb-2">Torta de dos pisos para matrimonio</h2>
+
+                <!-- Estilos de parrafo de Bootstrap: texto pequeno y atenuado -->
+                <p class="card-text small text-body-secondary flex-grow-1">
+                  Dos pisos con acabado en fondant y detalles florales.
+                </p>
+
+                <p class="mb-3">
+                  <span class="x7-precio">S/ 320.00</span>
+                  <span class="small text-body-secondary">50 porciones</span>
+                </p>
+
+                <div class="d-grid gap-2">
+                  <a class="btn btn-primary" href="personalizado.html">Pedir</a>
+
+                  <!-- Los atributos data- alimentan la unica ventana modal.
+                       main.js los lee con dataset cuando se pulsa el boton. -->
+                  <button class="btn btn-outline-primary" type="button"
+                          data-bs-toggle="modal" data-bs-target="#modal-producto"
+                          data-codigo="P05"
+                          data-nombre="Torta de dos pisos para matrimonio"
+                          data-etiqueta="Tortas decoradas"
+                          data-descripcion="Dos pisos con acabado en fondant y detalles florales."
+                          data-precio="S/ 320.00"
+                          data-presentacion="50 porciones"
+                          data-imagen="../static/img/productos/p05.jpg"
+                          data-alt="Torta de dos pisos con acabado en fondant y detalles florales">
+                    <i class="bi bi-eye me-1" aria-hidden="true"></i>Vista rapida
+                  </button>
+                </div>
+
+              </div>
+            </div>
+          </article>
+
+          <!-- ============ Producto P06 ============ -->
+          <article class="col" data-categoria="tortas">
+            <div class="card x7-tarjeta h-100 overflow-hidden">
+
+              <img class="card-img-top x7-imagen-4-3" src="../static/img/productos/p06.jpg"
+                   alt="Torta de zanahoria y nuez con cobertura de queso crema">
+
+              <div class="card-body d-flex flex-column">
+
+                <!-- Insignia con la categoria del producto -->
+                <span class="badge text-bg-secondary align-self-start mb-2">Tortas decoradas</span>
+
+                <h2 class="h5 card-title mb-2">Torta de zanahoria y nuez</h2>
+
+                <!-- Estilos de parrafo de Bootstrap: texto pequeno y atenuado -->
+                <p class="card-text small text-body-secondary flex-grow-1">
+                  Bizcocho especiado con cobertura de queso crema.
+                </p>
+
+                <p class="mb-3">
+                  <span class="x7-precio">S/ 90.00</span>
+                  <span class="small text-body-secondary">20 porciones</span>
+                </p>
+
+                <div class="d-grid gap-2">
+                  <a class="btn btn-primary" href="personalizado.html">Pedir</a>
+
+                  <!-- Los atributos data- alimentan la unica ventana modal.
+                       main.js los lee con dataset cuando se pulsa el boton. -->
+                  <button class="btn btn-outline-primary" type="button"
+                          data-bs-toggle="modal" data-bs-target="#modal-producto"
+                          data-codigo="P06"
+                          data-nombre="Torta de zanahoria y nuez"
+                          data-etiqueta="Tortas decoradas"
+                          data-descripcion="Bizcocho especiado con cobertura de queso crema."
+                          data-precio="S/ 90.00"
+                          data-presentacion="20 porciones"
+                          data-imagen="../static/img/productos/p06.jpg"
+                          data-alt="Torta de zanahoria y nuez con cobertura de queso crema">
+                    <i class="bi bi-eye me-1" aria-hidden="true"></i>Vista rapida
+                  </button>
+                </div>
+
+              </div>
+            </div>
+          </article>
+
+          <!-- ============ Producto P07 ============ -->
+          <article class="col" data-categoria="bocaditos">
+            <div class="card x7-tarjeta h-100 overflow-hidden">
+
+              <img class="card-img-top x7-imagen-4-3" src="../static/img/productos/p07.jpg"
+                   alt="Alfajores de maicena rellenos de manjar blanco">
+
+              <div class="card-body d-flex flex-column">
+
+                <!-- Insignia con la categoria del producto -->
+                <span class="badge text-bg-secondary align-self-start mb-2">Bocaditos tematicos</span>
+
+                <h2 class="h5 card-title mb-2">Alfajores de maicena</h2>
+
+                <!-- Estilos de parrafo de Bootstrap: texto pequeno y atenuado -->
+                <p class="card-text small text-body-secondary flex-grow-1">
+                  Alfajores rellenos de manjar blanco espolvoreados con azucar.
+                </p>
+
+                <p class="mb-3">
+                  <span class="x7-precio">S/ 45.00</span>
+                  <span class="small text-body-secondary">Ciento</span>
+                </p>
+
+                <div class="d-grid gap-2">
+                  <a class="btn btn-primary" href="personalizado.html">Pedir</a>
+
+                  <!-- Los atributos data- alimentan la unica ventana modal.
+                       main.js los lee con dataset cuando se pulsa el boton. -->
+                  <button class="btn btn-outline-primary" type="button"
+                          data-bs-toggle="modal" data-bs-target="#modal-producto"
+                          data-codigo="P07"
+                          data-nombre="Alfajores de maicena"
+                          data-etiqueta="Bocaditos tematicos"
+                          data-descripcion="Alfajores rellenos de manjar blanco espolvoreados con azucar."
+                          data-precio="S/ 45.00"
+                          data-presentacion="Ciento"
+                          data-imagen="../static/img/productos/p07.jpg"
+                          data-alt="Alfajores de maicena rellenos de manjar blanco">
+                    <i class="bi bi-eye me-1" aria-hidden="true"></i>Vista rapida
+                  </button>
+                </div>
+
+              </div>
+            </div>
+          </article>
+
+          <!-- ============ Producto P08 ============ -->
+          <article class="col" data-categoria="bocaditos">
+            <div class="card x7-tarjeta h-100 overflow-hidden">
+
+              <img class="card-img-top x7-imagen-4-3" src="../static/img/productos/p08.jpg"
+                   alt="Mini cupcakes decorados con betun de colores segun el tema">
+
+              <div class="card-body d-flex flex-column">
+
+                <!-- Insignia con la categoria del producto -->
+                <span class="badge text-bg-secondary align-self-start mb-2">Bocaditos tematicos</span>
+
+                <h2 class="h5 card-title mb-2">Mini cupcakes decorados</h2>
+
+                <!-- Estilos de parrafo de Bootstrap: texto pequeno y atenuado -->
+                <p class="card-text small text-body-secondary flex-grow-1">
+                  Cupcakes pequenos con betun de colores segun el tema.
+                </p>
+
+                <p class="mb-3">
+                  <span class="x7-precio">S/ 80.00</span>
+                  <span class="small text-body-secondary">Ciento</span>
+                </p>
+
+                <div class="d-grid gap-2">
+                  <a class="btn btn-primary" href="personalizado.html">Pedir</a>
+
+                  <!-- Los atributos data- alimentan la unica ventana modal.
+                       main.js los lee con dataset cuando se pulsa el boton. -->
+                  <button class="btn btn-outline-primary" type="button"
+                          data-bs-toggle="modal" data-bs-target="#modal-producto"
+                          data-codigo="P08"
+                          data-nombre="Mini cupcakes decorados"
+                          data-etiqueta="Bocaditos tematicos"
+                          data-descripcion="Cupcakes pequenos con betun de colores segun el tema."
+                          data-precio="S/ 80.00"
+                          data-presentacion="Ciento"
+                          data-imagen="../static/img/productos/p08.jpg"
+                          data-alt="Mini cupcakes decorados con betun de colores segun el tema">
+                    <i class="bi bi-eye me-1" aria-hidden="true"></i>Vista rapida
+                  </button>
+                </div>
+
+              </div>
+            </div>
+          </article>
+
+          <!-- ============ Producto P09 ============ -->
+          <article class="col" data-categoria="bocaditos">
+            <div class="card x7-tarjeta h-100 overflow-hidden">
+
+              <img class="card-img-top x7-imagen-4-3" src="../static/img/productos/p09.jpg"
+                   alt="Bandeja de empanaditas, enrollados y tequenos surtidos">
+
+              <div class="card-body d-flex flex-column">
+
+                <!-- Insignia con la categoria del producto -->
+                <span class="badge text-bg-secondary align-self-start mb-2">Bocaditos tematicos</span>
+
+                <h2 class="h5 card-title mb-2">Bocaditos salados surtidos</h2>
+
+                <!-- Estilos de parrafo de Bootstrap: texto pequeno y atenuado -->
+                <p class="card-text small text-body-secondary flex-grow-1">
+                  Empanaditas, enrollados y tequenos en presentacion surtida.
+                </p>
+
+                <p class="mb-3">
+                  <span class="x7-precio">S/ 95.00</span>
+                  <span class="small text-body-secondary">Ciento</span>
+                </p>
+
+                <div class="d-grid gap-2">
+                  <a class="btn btn-primary" href="personalizado.html">Pedir</a>
+
+                  <!-- Los atributos data- alimentan la unica ventana modal.
+                       main.js los lee con dataset cuando se pulsa el boton. -->
+                  <button class="btn btn-outline-primary" type="button"
+                          data-bs-toggle="modal" data-bs-target="#modal-producto"
+                          data-codigo="P09"
+                          data-nombre="Bocaditos salados surtidos"
+                          data-etiqueta="Bocaditos tematicos"
+                          data-descripcion="Empanaditas, enrollados y tequenos en presentacion surtida."
+                          data-precio="S/ 95.00"
+                          data-presentacion="Ciento"
+                          data-imagen="../static/img/productos/p09.jpg"
+                          data-alt="Bandeja de empanaditas, enrollados y tequenos surtidos">
+                    <i class="bi bi-eye me-1" aria-hidden="true"></i>Vista rapida
+                  </button>
+                </div>
+
+              </div>
+            </div>
+          </article>
+
+          <!-- ============ Producto P10 ============ -->
+          <article class="col" data-categoria="bocaditos">
+            <div class="card x7-tarjeta h-100 overflow-hidden">
+
+              <img class="card-img-top x7-imagen-4-3" src="../static/img/productos/p10.jpg"
+                   alt="Brownies de chocolate cortados en porciones individuales">
+
+              <div class="card-body d-flex flex-column">
+
+                <!-- Insignia con la categoria del producto -->
+                <span class="badge text-bg-secondary align-self-start mb-2">Bocaditos tematicos</span>
+
+                <h2 class="h5 card-title mb-2">Brownies en porciones</h2>
+
+                <!-- Estilos de parrafo de Bootstrap: texto pequeno y atenuado -->
+                <p class="card-text small text-body-secondary flex-grow-1">
+                  Brownie de chocolate cortado en porciones individuales.
+                </p>
+
+                <p class="mb-3">
+                  <span class="x7-precio">S/ 60.00</span>
+                  <span class="small text-body-secondary">Ciento</span>
+                </p>
+
+                <div class="d-grid gap-2">
+                  <a class="btn btn-primary" href="personalizado.html">Pedir</a>
+
+                  <!-- Los atributos data- alimentan la unica ventana modal.
+                       main.js los lee con dataset cuando se pulsa el boton. -->
+                  <button class="btn btn-outline-primary" type="button"
+                          data-bs-toggle="modal" data-bs-target="#modal-producto"
+                          data-codigo="P10"
+                          data-nombre="Brownies en porciones"
+                          data-etiqueta="Bocaditos tematicos"
+                          data-descripcion="Brownie de chocolate cortado en porciones individuales."
+                          data-precio="S/ 60.00"
+                          data-presentacion="Ciento"
+                          data-imagen="../static/img/productos/p10.jpg"
+                          data-alt="Brownies de chocolate cortados en porciones individuales">
+                    <i class="bi bi-eye me-1" aria-hidden="true"></i>Vista rapida
+                  </button>
+                </div>
+
+              </div>
+            </div>
+          </article>
+
+          <!-- ============ Producto P11 ============ -->
+          <article class="col" data-categoria="bocaditos">
+            <div class="card x7-tarjeta h-100 overflow-hidden">
+
+              <img class="card-img-top x7-imagen-4-3" src="../static/img/productos/p11.jpg"
+                   alt="Cake pops tematicos banados en chocolate con decoracion">
+
+              <div class="card-body d-flex flex-column">
+
+                <!-- Insignia con la categoria del producto -->
+                <span class="badge text-bg-secondary align-self-start mb-2">Bocaditos tematicos</span>
+
+                <h2 class="h5 card-title mb-2">Cake pops tematicos</h2>
+
+                <!-- Estilos de parrafo de Bootstrap: texto pequeno y atenuado -->
+                <p class="card-text small text-body-secondary flex-grow-1">
+                  Esferas de bizcocho banadas en chocolate con decoracion tematica.
+                </p>
+
+                <p class="mb-3">
+                  <span class="x7-precio">S/ 90.00</span>
+                  <span class="small text-body-secondary">Ciento</span>
+                </p>
+
+                <div class="d-grid gap-2">
+                  <a class="btn btn-primary" href="personalizado.html">Pedir</a>
+
+                  <!-- Los atributos data- alimentan la unica ventana modal.
+                       main.js los lee con dataset cuando se pulsa el boton. -->
+                  <button class="btn btn-outline-primary" type="button"
+                          data-bs-toggle="modal" data-bs-target="#modal-producto"
+                          data-codigo="P11"
+                          data-nombre="Cake pops tematicos"
+                          data-etiqueta="Bocaditos tematicos"
+                          data-descripcion="Esferas de bizcocho banadas en chocolate con decoracion tematica."
+                          data-precio="S/ 90.00"
+                          data-presentacion="Ciento"
+                          data-imagen="../static/img/productos/p11.jpg"
+                          data-alt="Cake pops tematicos banados en chocolate con decoracion">
+                    <i class="bi bi-eye me-1" aria-hidden="true"></i>Vista rapida
+                  </button>
+                </div>
+
+              </div>
+            </div>
+          </article>
+
+          <!-- ============ Producto P12 ============ -->
+          <article class="col" data-categoria="bocaditos">
+            <div class="card x7-tarjeta h-100 overflow-hidden">
+
+              <img class="card-img-top x7-imagen-4-3" src="../static/img/productos/p12.jpg"
+                   alt="Mesa dulce completa montada con surtido de bocaditos">
+
+              <div class="card-body d-flex flex-column">
+
+                <!-- Insignia con la categoria del producto -->
+                <span class="badge text-bg-secondary align-self-start mb-2">Bocaditos tematicos</span>
+
+                <h2 class="h5 card-title mb-2">Mesa dulce completa</h2>
+
+                <!-- Estilos de parrafo de Bootstrap: texto pequeno y atenuado -->
+                <p class="card-text small text-body-secondary flex-grow-1">
+                  Montaje de mesa dulce con surtido de bocaditos y ambientacion.
+                </p>
+
+                <p class="mb-3">
+                  <span class="x7-precio">S/ 450.00</span>
+                  <span class="small text-body-secondary">Evento</span>
+                </p>
+
+                <div class="d-grid gap-2">
+                  <a class="btn btn-primary" href="personalizado.html">Pedir</a>
+
+                  <!-- Los atributos data- alimentan la unica ventana modal.
+                       main.js los lee con dataset cuando se pulsa el boton. -->
+                  <button class="btn btn-outline-primary" type="button"
+                          data-bs-toggle="modal" data-bs-target="#modal-producto"
+                          data-codigo="P12"
+                          data-nombre="Mesa dulce completa"
+                          data-etiqueta="Bocaditos tematicos"
+                          data-descripcion="Montaje de mesa dulce con surtido de bocaditos y ambientacion."
+                          data-precio="S/ 450.00"
+                          data-presentacion="Evento"
+                          data-imagen="../static/img/productos/p12.jpg"
+                          data-alt="Mesa dulce completa montada con surtido de bocaditos">
+                    <i class="bi bi-eye me-1" aria-hidden="true"></i>Vista rapida
+                  </button>
+                </div>
+
+              </div>
+            </div>
+          </article>
+
+          <!-- ============ Producto P13 ============ -->
+          <article class="col" data-categoria="buffets">
+            <div class="card x7-tarjeta h-100 overflow-hidden">
+
+              <img class="card-img-top x7-imagen-4-3" src="../static/img/productos/p13.jpg"
+                   alt="Buffet criollo servido con entrada, fondo, guarniciones y postre">
+
+              <div class="card-body d-flex flex-column">
+
+                <!-- Insignia con la categoria del producto -->
+                <span class="badge text-bg-secondary align-self-start mb-2">Buffets para eventos</span>
+
+                <h2 class="h5 card-title mb-2">Buffet criollo para 30 personas</h2>
+
+                <!-- Estilos de parrafo de Bootstrap: texto pequeno y atenuado -->
+                <p class="card-text small text-body-secondary flex-grow-1">
+                  Entrada, plato de fondo criollo, guarniciones y postre.
+                </p>
+
+                <p class="mb-3">
+                  <span class="x7-precio">S/ 900.00</span>
+                  <span class="small text-body-secondary">30 personas</span>
+                </p>
+
+                <div class="d-grid gap-2">
+                  <a class="btn btn-primary" href="personalizado.html">Pedir</a>
+
+                  <!-- Los atributos data- alimentan la unica ventana modal.
+                       main.js los lee con dataset cuando se pulsa el boton. -->
+                  <button class="btn btn-outline-primary" type="button"
+                          data-bs-toggle="modal" data-bs-target="#modal-producto"
+                          data-codigo="P13"
+                          data-nombre="Buffet criollo para 30 personas"
+                          data-etiqueta="Buffets para eventos"
+                          data-descripcion="Entrada, plato de fondo criollo, guarniciones y postre."
+                          data-precio="S/ 900.00"
+                          data-presentacion="30 personas"
+                          data-imagen="../static/img/productos/p13.jpg"
+                          data-alt="Buffet criollo servido con entrada, fondo, guarniciones y postre">
+                    <i class="bi bi-eye me-1" aria-hidden="true"></i>Vista rapida
+                  </button>
+                </div>
+
+              </div>
+            </div>
+          </article>
+
+          <!-- ============ Producto P14 ============ -->
+          <article class="col" data-categoria="buffets">
+            <div class="card x7-tarjeta h-100 overflow-hidden">
+
+              <img class="card-img-top x7-imagen-4-3" src="../static/img/productos/p14.jpg"
+                   alt="Surtido de bocaditos dulces y salados con servicio de montaje">
+
+              <div class="card-body d-flex flex-column">
+
+                <!-- Insignia con la categoria del producto -->
+                <span class="badge text-bg-secondary align-self-start mb-2">Buffets para eventos</span>
+
+                <h2 class="h5 card-title mb-2">Buffet de bocaditos para 50 personas</h2>
+
+                <!-- Estilos de parrafo de Bootstrap: texto pequeno y atenuado -->
+                <p class="card-text small text-body-secondary flex-grow-1">
+                  Surtido de bocaditos dulces y salados con servicio de montaje.
+                </p>
+
+                <p class="mb-3">
+                  <span class="x7-precio">S/ 750.00</span>
+                  <span class="small text-body-secondary">50 personas</span>
+                </p>
+
+                <div class="d-grid gap-2">
+                  <a class="btn btn-primary" href="personalizado.html">Pedir</a>
+
+                  <!-- Los atributos data- alimentan la unica ventana modal.
+                       main.js los lee con dataset cuando se pulsa el boton. -->
+                  <button class="btn btn-outline-primary" type="button"
+                          data-bs-toggle="modal" data-bs-target="#modal-producto"
+                          data-codigo="P14"
+                          data-nombre="Buffet de bocaditos para 50 personas"
+                          data-etiqueta="Buffets para eventos"
+                          data-descripcion="Surtido de bocaditos dulces y salados con servicio de montaje."
+                          data-precio="S/ 750.00"
+                          data-presentacion="50 personas"
+                          data-imagen="../static/img/productos/p14.jpg"
+                          data-alt="Surtido de bocaditos dulces y salados con servicio de montaje">
+                    <i class="bi bi-eye me-1" aria-hidden="true"></i>Vista rapida
+                  </button>
+                </div>
+
+              </div>
+            </div>
+          </article>
+
+          <!-- ============ Producto P15 ============ -->
+          <article class="col" data-categoria="buffets">
+            <div class="card x7-tarjeta h-100 overflow-hidden">
+
+              <img class="card-img-top x7-imagen-4-3" src="../static/img/productos/p15.jpg"
+                   alt="Desayuno buffet corporativo con panaderia, frutas y jugos">
+
+              <div class="card-body d-flex flex-column">
+
+                <!-- Insignia con la categoria del producto -->
+                <span class="badge text-bg-secondary align-self-start mb-2">Buffets para eventos</span>
+
+                <h2 class="h5 card-title mb-2">Desayuno buffet corporativo</h2>
+
+                <!-- Estilos de parrafo de Bootstrap: texto pequeno y atenuado -->
+                <p class="card-text small text-body-secondary flex-grow-1">
+                  Panaderia, embutidos, frutas, jugos e infusiones.
+                </p>
+
+                <p class="mb-3">
+                  <span class="x7-precio">S/ 620.00</span>
+                  <span class="small text-body-secondary">25 personas</span>
+                </p>
+
+                <div class="d-grid gap-2">
+                  <a class="btn btn-primary" href="personalizado.html">Pedir</a>
+
+                  <!-- Los atributos data- alimentan la unica ventana modal.
+                       main.js los lee con dataset cuando se pulsa el boton. -->
+                  <button class="btn btn-outline-primary" type="button"
+                          data-bs-toggle="modal" data-bs-target="#modal-producto"
+                          data-codigo="P15"
+                          data-nombre="Desayuno buffet corporativo"
+                          data-etiqueta="Buffets para eventos"
+                          data-descripcion="Panaderia, embutidos, frutas, jugos e infusiones."
+                          data-precio="S/ 620.00"
+                          data-presentacion="25 personas"
+                          data-imagen="../static/img/productos/p15.jpg"
+                          data-alt="Desayuno buffet corporativo con panaderia, frutas y jugos">
+                    <i class="bi bi-eye me-1" aria-hidden="true"></i>Vista rapida
+                  </button>
+                </div>
+
+              </div>
+            </div>
+          </article>
+
+        </div>
+
+        <!-- Paginación de Bootstrap. Decorativa en esta etapa: se muestra
+             con elementos span, no con enlaces, para no dejar enlaces sin
+             destino. En el APF3 apuntará a las páginas reales. -->
+        <nav class="mt-5" aria-label="Paginacion del catalogo">
+          <ul class="pagination justify-content-center mb-0">
+            <li class="page-item disabled"><span class="page-link">Anterior</span></li>
+            <li class="page-item active" aria-current="page"><span class="page-link">1</span></li>
+            <li class="page-item disabled"><span class="page-link">2</span></li>
+            <li class="page-item disabled"><span class="page-link">Siguiente</span></li>
+          </ul>
+        </nav>
+
+      </div>
+    </section>
+
+
+    <!-- ====================================================================
+         Ventana modal de vista rápida
+         Una sola ventana para los quince productos. Al pulsar un botón
+         "Vista rapida", main.js lee los atributos data- de ese botón y
+         escribe sus valores aquí dentro.
+         ==================================================================== -->
+    <div class="modal fade" id="modal-producto" tabindex="-1" aria-labelledby="modal-producto-titulo" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+
+          <div class="modal-header">
+            <h2 class="modal-title h5" id="modal-producto-titulo">Detalle del producto</h2>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+
+          <div class="modal-body">
+            <div class="row g-4">
+
+              <div class="col-12 col-md-6">
+                <img class="x7-imagen-4-3 rounded" id="modal-producto-imagen"
+                     src="../static/img/productos/p01.jpg"
+                     alt="Torta de chocolate cubierta con fudge">
+              </div>
+
+              <div class="col-12 col-md-6">
+
+                <span class="badge text-bg-secondary mb-2" id="modal-producto-etiqueta">Categoria</span>
+
+                <p id="modal-producto-descripcion">Descripcion del producto seleccionado.</p>
+
+                <!-- Estilos de párrafo de Bootstrap: lista en texto pequeño y atenuado -->
+                <ul class="list-unstyled small text-body-secondary mb-3">
+                  <li><strong>Codigo:</strong> <span id="modal-producto-codigo">P00</span></li>
+                  <li><strong>Presentacion:</strong> <span id="modal-producto-presentacion">Sin definir</span></li>
+                  <li><strong>Anticipacion minima:</strong> 72 horas</li>
+                </ul>
+
+                <p class="x7-precio mb-0" id="modal-producto-precio">S/ 0.00</p>
+
+              </div>
+
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <a class="btn btn-primary" href="personalizado.html">Pedir este producto</a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+
+  <!-- ======================================================================
+       Pie de página
+       Tres columnas que se apilan en móvil: marca, enlaces y contacto.
+       Debajo, la línea de derechos.
+       ====================================================================== -->
+  <footer class="x7-footer pt-5 pb-4 mt-auto">
+    <div class="container">
+      <div class="row g-4">
+
+        <!-- Columna 1: marca y descripción del negocio -->
+        <div class="col-12 col-lg-5">
+
+          <p class="x7-marca d-flex align-items-center gap-2 mb-3">
+            <img src="../static/img/logo.svg" alt="Logotipo de X7 Pasteleria y Catering" width="36" height="36">
+            <span>X7</span>
+          </p>
+
+          <p class="mb-0">
+            Pasteleria y catering en Ica. Tortas decoradas por encargo, bocaditos tematicos
+            y buffets para reuniones familiares y corporativas.
+          </p>
+
+        </div>
+
+        <!-- Columna 2: enlaces a las cuatro páginas del sitio -->
+        <div class="col-12 col-sm-6 col-lg-3">
+          <h2 class="h6 text-uppercase mb-3">Enlaces</h2>
+          <ul class="list-unstyled d-grid gap-2 mb-0">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="catalogo.html">Catalogo</a></li>
+            <li><a href="personalizado.html">Personaliza tu torta</a></li>
+            <li><a href="mis-pedidos.html">Mis pedidos</a></li>
+          </ul>
+        </div>
+
+        <!-- Columna 3: datos de contacto, horario y redes sociales -->
+        <div class="col-12 col-sm-6 col-lg-4">
+
+          <h2 class="h6 text-uppercase mb-3">Contacto</h2>
+
+          <ul class="list-unstyled d-grid gap-2 mb-3">
+            <li class="d-flex gap-2">
+              <i class="bi bi-geo-alt flex-shrink-0 mt-1" aria-hidden="true"></i>
+              <span>[direccion pendiente], Ica, Peru</span>
+            </li>
+            <li class="d-flex gap-2">
+              <i class="bi bi-telephone flex-shrink-0 mt-1" aria-hidden="true"></i>
+              <span>[telefono pendiente]</span>
+            </li>
+            <li class="d-flex gap-2">
+              <i class="bi bi-envelope flex-shrink-0 mt-1" aria-hidden="true"></i>
+              <a href="mailto:contacto@x7.pe">contacto@x7.pe</a>
+            </li>
+            <li class="d-flex gap-2">
+              <i class="bi bi-clock flex-shrink-0 mt-1" aria-hidden="true"></i>
+              <span>Lunes a sabado de 9:00 a 20:00. Domingos de 10:00 a 14:00.</span>
+            </li>
+          </ul>
+
+          <!-- Redes sociales -->
+          <ul class="list-unstyled d-flex gap-2 mb-0">
+            <li>
+              <a class="x7-red-social d-inline-flex align-items-center justify-content-center rounded-circle"
+                 href="https://www.facebook.com/" aria-label="Facebook de X7">
+                <i class="bi bi-facebook" aria-hidden="true"></i>
+              </a>
+            </li>
+            <li>
+              <a class="x7-red-social d-inline-flex align-items-center justify-content-center rounded-circle"
+                 href="https://www.instagram.com/" aria-label="Instagram de X7">
+                <i class="bi bi-instagram" aria-hidden="true"></i>
+              </a>
+            </li>
+            <li>
+              <a class="x7-red-social d-inline-flex align-items-center justify-content-center rounded-circle"
+                 href="https://www.tiktok.com/" aria-label="TikTok de X7">
+                <i class="bi bi-tiktok" aria-hidden="true"></i>
+              </a>
+            </li>
+            <li>
+              <a class="x7-red-social d-inline-flex align-items-center justify-content-center rounded-circle"
+                 href="https://wa.me/" aria-label="WhatsApp de X7">
+                <i class="bi bi-whatsapp" aria-hidden="true"></i>
+              </a>
+            </li>
+          </ul>
+
+        </div>
+
+      </div>
+
+      <!-- Línea de derechos -->
+      <p class="x7-derechos text-center mt-4 pt-3 mb-0">
+        2026 X7 Pasteleria y Catering. Ica, Peru. Proyecto academico del curso Marcos de Desarrollo Web.
+      </p>
+
+    </div>
+  </footer>
+
+
+  <!-- Scripts al final del body: primero Bootstrap, luego el propio -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../static/js/main.js"></script>
+
+</body>
+
+</html>

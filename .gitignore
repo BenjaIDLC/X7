@@ -1,0 +1,11 @@
+# Archivos que genera el sistema operativo
+Thumbs.db
+ehthumbs.db
+desktop.ini
+.DS_Store
+
+# Configuracion local de editores
+.vscode/
+.idea/
+*.swp
+*~

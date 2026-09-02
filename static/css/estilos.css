@@ -1,0 +1,307 @@
+/* ==========================================================================
+   Archivo:     static/css/estilos.css
+   Propósito:   Hoja de identidad de marca del sitio X7. Define los colores,
+                las tipografías y los pocos componentes propios del proyecto.
+                Todo lo que Bootstrap ya resuelve NO se repite aquí.
+   Integrante:  ______________________________
+
+   Se carga siempre DESPUÉS de bootstrap.min.css, para que estos valores
+   ganen sobre los del framework.
+   ========================================================================== */
+
+
+/* --------------------------------------------------------------------------
+   1. Variables de marca
+   Un solo lugar donde cambiar los colores de todo el sitio.
+   -------------------------------------------------------------------------- */
+:root {
+  --x7-primario: #A63A55;        /* frambuesa, acciones principales */
+  --x7-primario-oscuro: #7E2A3F; /* frambuesa oscuro, estado hover */
+  --x7-acento: #C9A227;          /* dorado, detalles y destacados */
+  --x7-crema: #F7EDE4;           /* fondo de las secciones alternas */
+  --x7-texto: #2B2118;
+  --x7-texto-suave: #6B6259;
+  --x7-borde: #E4D8CC;
+
+  /* El mismo frambuesa en formato rgb, que es como lo piden las
+     utilidades de color de Bootstrap (bg-primary, text-primary). */
+  --x7-primario-rgb: 166, 58, 85;
+
+  /* Sombras de las tarjetas */
+  --x7-sombra: 0 0.125rem 0.5rem rgba(43, 33, 24, 0.06);
+  --x7-sombra-elevada: 0 0.75rem 1.75rem rgba(43, 33, 24, 0.13);
+
+  /* Tipografías */
+  --x7-fuente-titulo: "Playfair Display", Georgia, serif;
+  --x7-fuente-texto: "Inter", "Segoe UI", Arial, sans-serif;
+}
+
+
+/* --------------------------------------------------------------------------
+   2. Colores de marca dentro de Bootstrap
+   Bootstrap 5.3 construye sus componentes con variables CSS. Aquí se les
+   dan los valores de la marca, en lugar de reescribir sus reglas.
+   -------------------------------------------------------------------------- */
+:root {
+  --bs-primary: var(--x7-primario);
+  --bs-primary-rgb: var(--x7-primario-rgb);
+
+  --bs-body-font-family: var(--x7-fuente-texto);
+  --bs-body-color: var(--x7-texto);
+
+  /* Color del texto secundario de Bootstrap, el de la clase
+     text-body-secondary. Se le da el gris de la marca. */
+  --bs-secondary-color: var(--x7-texto-suave);
+
+  --bs-border-color: var(--x7-borde);
+  --bs-border-radius: 0.75rem;
+
+  --bs-link-color: var(--x7-primario);
+  --bs-link-hover-color: var(--x7-primario-oscuro);
+}
+
+/* Botón principal */
+.btn-primary {
+  --bs-btn-bg: var(--x7-primario);
+  --bs-btn-border-color: var(--x7-primario);
+  --bs-btn-hover-bg: var(--x7-primario-oscuro);
+  --bs-btn-hover-border-color: var(--x7-primario-oscuro);
+  --bs-btn-active-bg: var(--x7-primario-oscuro);
+  --bs-btn-active-border-color: var(--x7-primario-oscuro);
+}
+
+/* Botón con solo el contorno */
+.btn-outline-primary {
+  --bs-btn-color: var(--x7-primario);
+  --bs-btn-border-color: var(--x7-primario);
+  --bs-btn-hover-bg: var(--x7-primario);
+  --bs-btn-hover-border-color: var(--x7-primario);
+  --bs-btn-active-bg: var(--x7-primario-oscuro);
+  --bs-btn-active-border-color: var(--x7-primario-oscuro);
+}
+
+/* Botón dorado. Se usa solo en la franja de cotización, donde el fondo
+   ya es frambuesa y un botón frambuesa no se vería. */
+.btn-acento {
+  --bs-btn-color: var(--x7-texto);
+  --bs-btn-bg: var(--x7-acento);
+  --bs-btn-border-color: var(--x7-acento);
+  --bs-btn-hover-color: var(--x7-texto);
+  --bs-btn-hover-bg: #B08D1F;
+  --bs-btn-hover-border-color: #B08D1F;
+}
+
+
+/* --------------------------------------------------------------------------
+   3. Tipografía
+   -------------------------------------------------------------------------- */
+
+/* Todos los títulos van en Playfair Display */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--x7-fuente-titulo);
+  font-weight: 700;
+}
+
+/* Rótulo pequeño en mayúsculas que abre cada sección */
+.x7-superior {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--x7-primario);
+}
+
+/* El texto secundario NO tiene clase propia: se usa text-body-secondary de
+   Bootstrap, que toma su color de --bs-secondary-color, definido arriba con
+   el gris de la marca. */
+
+
+/* --------------------------------------------------------------------------
+   4. Fondos de sección
+   Las secciones de la página de inicio alternan blanco y crema.
+   -------------------------------------------------------------------------- */
+
+.x7-fondo-crema {
+  background-color: var(--x7-crema);
+}
+
+/* Franja de color de marca del llamado final */
+.x7-franja {
+  background-color: var(--x7-primario);
+  color: #fff;
+}
+
+
+/* --------------------------------------------------------------------------
+   5. Barra de navegación
+   -------------------------------------------------------------------------- */
+
+.x7-navbar {
+  background-color: #fff;
+  border-bottom: 1px solid var(--x7-borde);
+  box-shadow: var(--x7-sombra);
+}
+
+/* Nombre del negocio junto al logotipo */
+.x7-marca {
+  font-family: var(--x7-fuente-titulo);
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: var(--x7-primario);
+}
+
+.x7-navbar .nav-link {
+  color: var(--x7-texto);
+  font-weight: 500;
+}
+
+.x7-navbar .nav-link:hover {
+  color: var(--x7-primario);
+}
+
+/* Enlace de la página que se está viendo. La clase active la agrega main.js */
+.x7-navbar .nav-link.active {
+  color: var(--x7-primario);
+  font-weight: 600;
+}
+
+/* Desde 992 px el enlace activo lleva además un subrayado dorado. En móvil
+   no, porque en el menú desplegado se leería como una línea divisoria. */
+@media (min-width: 992px) {
+  .x7-navbar .nav-link.active {
+    border-bottom: 2px solid var(--x7-acento);
+  }
+}
+
+
+/* --------------------------------------------------------------------------
+   6. Sección hero
+   La capa oscura va encima de la foto para que el texto blanco se lea.
+   -------------------------------------------------------------------------- */
+
+.x7-hero {
+  background-image:
+    linear-gradient(rgba(43, 33, 24, 0.58), rgba(43, 33, 24, 0.58)),
+    url("../img/hero/hero.jpg");
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+}
+
+
+/* --------------------------------------------------------------------------
+   7. Imágenes
+   Todas las fotos de producto y de galería van en proporción 4:3, recortadas
+   al centro. Si cada una tuviera su proporción, la rejilla se vería rota.
+   -------------------------------------------------------------------------- */
+
+.x7-imagen-4-3 {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+
+/* --------------------------------------------------------------------------
+   8. Tarjetas
+   El borde y las esquinas redondeadas ya los pone la clase card de Bootstrap.
+   Aquí solo se agrega la sombra de marca y el leve movimiento al pasar el mouse.
+   -------------------------------------------------------------------------- */
+
+.x7-tarjeta {
+  box-shadow: var(--x7-sombra);
+  transition: transform 180ms ease-in-out, box-shadow 180ms ease-in-out;
+}
+
+.x7-tarjeta:hover {
+  transform: translateY(-0.25rem);
+  box-shadow: var(--x7-sombra-elevada);
+}
+
+/* Precio del producto */
+.x7-precio {
+  font-family: var(--x7-fuente-titulo);
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: var(--x7-primario);
+}
+
+
+/* --------------------------------------------------------------------------
+   9. Iconos, pasos y estrellas
+   La forma redonda y el centrado los ponen las clases de Bootstrap
+   rounded-circle, d-inline-flex, align-items-center y justify-content-center.
+   Aquí solo van el tamaño y los colores.
+   -------------------------------------------------------------------------- */
+
+/* Círculo grande con un icono dentro, en Cómo funciona y en Testimonios */
+.x7-icono-circulo {
+  width: 3.5rem;
+  height: 3.5rem;
+  background-color: var(--x7-crema);
+  border: 1px solid var(--x7-borde);
+  color: var(--x7-primario);
+  font-size: 1.5rem;
+}
+
+/* Círculo pequeño con el número del paso */
+.x7-paso-numero {
+  width: 1.75rem;
+  height: 1.75rem;
+  background-color: var(--x7-primario);
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+/* Estrellas de los testimonios */
+.x7-estrellas {
+  color: var(--x7-acento);
+  letter-spacing: 0.1em;
+}
+
+
+/* --------------------------------------------------------------------------
+   10. Pie de página
+   -------------------------------------------------------------------------- */
+
+.x7-footer {
+  background-color: var(--x7-texto);
+  color: #D9D1C8;
+}
+
+.x7-footer h2 {
+  color: #fff;
+}
+
+.x7-footer a {
+  color: #D9D1C8;
+  text-decoration: none;
+}
+
+.x7-footer a:hover {
+  color: var(--x7-acento);
+}
+
+.x7-footer .x7-marca {
+  color: #fff;
+}
+
+/* Círculo de cada red social */
+.x7-red-social {
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.x7-red-social:hover {
+  background-color: var(--x7-primario);
+  border-color: var(--x7-primario);
+  color: #fff;
+}
+
+/* Línea de derechos, separada del resto por un filete claro */
+.x7-derechos {
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  font-size: 0.875rem;
+}
