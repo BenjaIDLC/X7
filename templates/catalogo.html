@@ -8,7 +8,7 @@
 
   Contiene dos secciones y una ventana modal:
     1. Encabezado de página
-    2. Filtros y rejilla de productos
+    2. Filtros y rejilla de productos, con paginación
     Ventana modal de vista rápida, reutilizada por las seis tarjetas
 
   La cabecera, la barra de navegación y el pie son copia exacta de los
@@ -433,8 +433,18 @@
             </div>
           </article>
 
-
         </div>
+
+        <!-- Paginación de Bootstrap. Con seis productos solo hay una página,
+             así que se muestra únicamente su número. Va en un elemento span y
+             no en un enlace, porque no hay ninguna otra página a la que
+             apuntar. En el APF3, cuando el catálogo vuelva a quince, se
+             añadirán las demás. -->
+        <nav class="mt-5" aria-label="Paginacion del catalogo">
+          <ul class="pagination justify-content-center mb-0">
+            <li class="page-item active" aria-current="page"><span class="page-link">1</span></li>
+          </ul>
+        </nav>
 
       </div>
     </section>
