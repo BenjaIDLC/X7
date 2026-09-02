@@ -1,4 +1,4 @@
-# X7 Pastelería y Catering — sitio web
+# Sitio web de X7 Pastelería y Catering
 
 Sistema web de gestión de pedidos y catálogo para X7, una pastelería y empresa de
 catering de la ciudad de Ica, Perú, especializada en tortas decoradas por encargo,
