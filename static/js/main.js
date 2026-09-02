@@ -100,7 +100,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // Si la dirección trae #tortas, #bocaditos o #buffets, el catálogo se
-  // abre ya filtrado. Es lo que usan las tarjetas de categoría del inicio.
+  // abre ya filtrado.
   var categoriaDeLaDireccion = window.location.hash.replace("#", "");
 
   if (categoriaDeLaDireccion !== "" && botonesFiltro.length > 0) {
@@ -111,7 +111,7 @@ document.addEventListener("DOMContentLoaded", function () {
   /* ------------------------------------------------------------------------
      3. Relleno de la ventana modal de vista rápida
 
-     Hay una sola ventana modal para los quince productos. Bootstrap avisa
+     Hay una sola ventana modal para todas las tarjetas. Bootstrap avisa
      con el evento show.bs.modal justo antes de abrirla, y en ese aviso
      entrega en relatedTarget el botón que se pulsó. De ese botón se leen
      los atributos data- con dataset y se escriben dentro de la ventana.
